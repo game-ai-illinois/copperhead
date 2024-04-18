@@ -208,7 +208,7 @@ parameters["muSFFileList"] = {
 }
 
 parameters["zpt_weights_file"] = {"2016preVFP": "data/reweight_zpt_2017_nJetBinned_new.histo.root",
-                                  "2016postVFP": "data/reweight_zpt_2016_nJetBinned_new.histo.root",
+                                  "2016postVFP": "data/reweight_zpt_2017_nJetBinned_new.histo.root",
                                   "2017": "data/reweight_zpt_2017_nJetBinned_new.histo.root",
                                   "2018": "data/reweight_zpt_2018_nJetBinned_new.histo.root",
                                  }
