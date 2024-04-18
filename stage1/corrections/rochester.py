@@ -6,11 +6,10 @@ import correctionlib.schemav2 as cs
 def apply_roccor(df, rochester, is_mc):
     if is_mc:
         hasgen = ~np.isnan(ak.fill_none(df.Muon.matched_gen.pt, np.nan))
-        mc_rand = np.random.rand(*ak.to_numpy(ak.flatten(df.Muon.pt)).shape)
-        mc_rand = ak.unflatten(mc_rand, ak.num(df.Muon.pt, axis=1))
+        #mc_rand = np.random.rand(*ak.to_numpy(ak.flatten(df.Muon.pt)).shape)
+        #mc_rand = ak.unflatten(mc_rand, ak.num(df.Muon.pt, axis=1))
 
-        # correctionlib.schemav2 mc_rand start -----------------------------------------------------------
-        '''
+         #correctionlib.schemav2 mc_rand start -----------------------------------------------------------
         resrng = cs.Correction(
             name="resrng",
             description="Deterministic smearing value generator",
@@ -37,7 +36,7 @@ def apply_roccor(df, rochester, is_mc):
             ak.flatten(df.Muon.charge),
         )
         mc_rand = ak.unflatten(mc_rand, ak.num(df.Muon.pt, axis=1))
-        '''
+        
         # correctionlib.schemav2 mc_rand end --------------------------------------------------------------
 
         
