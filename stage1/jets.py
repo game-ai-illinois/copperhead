@@ -229,11 +229,18 @@ def jet_puid(jets, parameters, year):
     jet_puid_opt = parameters["jet_puid"]
     #puId = jets.puId17 if year == "2017" else jets.puId
     puId = jets.puId
-    jet_puid_wps = {
-        "loose": (puId >= 4) | (jets.pt > 50),
-        "medium": (puId >= 6) | (jets.pt > 50),
-        "tight": (puId >= 7) | (jets.pt > 50),
-    }
+    if "2016" in year:
+        jet_puid_wps = {
+            "loose": (puId >= 1) | (jets.pt > 50),
+            "medium": (puId >= 3) | (jets.pt > 50),
+            "tight": (puId >= 7) | (jets.pt > 50),
+        }
+    else:
+        jet_puid_wps = {
+            "loose": (puId >= 4) | (jets.pt > 50),
+            "medium": (puId >= 6) | (jets.pt > 50),
+            "tight": (puId >= 7) | (jets.pt > 50),
+        }
     pass_jet_puid = np.ones_like(jets.pt.values)
     if jet_puid_opt in ["loose", "medium", "tight"]:
         pass_jet_puid = jet_puid_wps[jet_puid_opt]
