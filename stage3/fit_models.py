@@ -44,7 +44,29 @@ def bwZ(x, tag):
         rt.RooArgList(x, bwmZ, bwWidth, expParam),
     )
     return bwmodel, [bwWidth, bwmZ, expParam]
+def RooExp(x, tag):
+    coeff = rt.RooRealVar("c" + tag, "c", -1, -15, 0.3)
+    
+    
+    model = rt.RooExponential(
+        "exp" + tag,"exp",
+        x, coeff
+    )
+    return model, [coeff]
+    
+def BW(x, tag):
+    bwWidth = rt.RooRealVar("bwz_Width" + tag, "widthZ", 2.5, 0, 30)
+    bwmZ = rt.RooRealVar("bwz_mZ" + tag, "mZ", 91.2, 87, 95)
+    
 
+    bwWidth.setConstant(True)
+    #bwmZ.setConstant(True)
+
+    bwmodel = rt.RooBreitWigner(
+        "bwz" + tag,"BW",
+        x, bwmZ, bwWidth
+    )
+    return bwmodel, [bwWidth, bwmZ]
 
 # --------------------------------------------------------
 # breit weigner mixture scaled by falling exp (run1 bg)
@@ -450,10 +472,10 @@ def Erf(x, tag):
 
     # Define the variable and parameters
 
-    slope = rt.RooRealVar("slope"+tag, "Slope", 0, 0, 1.)
-    offset = rt.RooRealVar("offset"+tag, "Offset", 91.2, 80, 105)
-    slope2 = rt.RooRealVar("slope2"+tag, "Slope", 0, 0, 1.)
-    offset2 = rt.RooRealVar("offset2"+tag, "Offset", 91.2, 81, 105)
+    slope = rt.RooRealVar("slope"+tag, "Slope", 0, 0, 2.)
+    offset = rt.RooRealVar("offset"+tag, "Offset", 91.2, 75, 105)
+    slope2 = rt.RooRealVar("slope2"+tag, "Slope", 0, 0, 2.)
+    offset2 = rt.RooRealVar("offset2"+tag, "Offset", 91.2, 75, 105)
 
 
     # Define the error function multiplied by an exponential for background modeling

@@ -105,37 +105,21 @@ def plot(fitter, ds_name, models, blinded, category, label, title, save_path):
                 rt.RooFit.Range("window"),
                 rt.RooFit.NormRange("window"),
                 rt.RooFit.LineColor(colors[count+1]),
-                rt.RooFit.Name("erf_exp_ggh_all"),
+                rt.RooFit.Name("erf_exp_ggh_All"),
                 rt.RooFit.Normalization(1.0-bkgfrac)
                 )
-            #if "BWxDCB" in model.GetName(): # Calculate and Plot backgorund contribution separately -> DOES NOT WORK (as in is incorrect)
-                #expparam = ws.var("bwz_expParam_ggh_All").getVal()
-                #BWWidth =  ws.var("bwz_Width_ggh_All").getVal()
-                #bwz_mZ =  ws.var("bwz_mZ_ggh_All").getVal()
-                #norm = ws.var("BWxDCB_ggh_All_norm").getVal()
-                #bwpure = rt.RooFormulaVar(
-                    #"bwzpure",
-                    #"(@3*@2)/(pow(@0-@1,2)+0.25*pow(@2,2))",
-                    #rt.RooArgList(mh_ggh, bwz_mZ, BWWidth),
-                    #)
-                #bwpureexp = rt.RooFormulaVar(
-                    #"bwzpureexp",
-                   #"exp(@0*@3)*(@2)*(@4)/(pow(@0-@1,2)+0.25*pow(@2,2))",
-                    #rt.RooArgList(mh_ggh, bwz_mZ, BWWidth, expparam),
-                    #)
-                #BKGPDF = rt.RooFormulaVar(
-                    #"BKG",
-                    #"(@0)-(@1)",
-                    #rt.RooArgList(bwpureexp,bwpure),)
-                #print("plotting BKG func")
-                #BKGPDF.plotOn(
-                #xframe,
-                #rt.RooFit.Range("window"),
-                #rt.RooFit.NormRange("window"),
-                #rt.RooFit.LineColor(colors[count+1]),
-                #rt.RooFit.Name("BKGPDF"),
-                #rt.RooFit.Normalization(norm)
-                #)
+            if "BWxDCB" in model.GetName(): 
+                sigfrac = ws.var("sigfrac").getVal()
+                print(sigfrac)
+                print("plotting BKG func")
+                ws.pdf("exp_ggh_All").plotOn(
+                xframe,
+                rt.RooFit.Range("window"),
+                rt.RooFit.NormRange("window"),
+                rt.RooFit.LineColor(colors[count+1]),
+                rt.RooFit.Name("exp_ggh_All"),
+                rt.RooFit.Normalization(1.0-sigfrac)
+                )
             model.plotOn(
                 xframe,
                 rt.RooFit.Range("window"),

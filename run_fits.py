@@ -108,11 +108,11 @@ if __name__ == "__main__":
 
             # read stage2 outputs
             for pat in path:
-                do_calib_fits=False
-                do_closure_fits=True
+                do_calib_fits=True
+                do_closure_fits=False
                 if not do_closure_fits:
                     df = pd.read_csv(f"{pat}/{dataset}.csv")
-                    df_all = pd.read_csv(f"{pat}/{dataset}_nocats.csv")
+                    #df_all = pd.read_csv(f"{pat}/{dataset}_nocats.csv")
                 if args.year[0] == "combined":
                     columns_to_check = ["score_BDTperyear_2016postVFP_nominal", "score_BDTperyear_2016preVFP_nominal", "score_BDTperyear_2017_nominal", "score_BDTperyear_2018_nominal"]
                 #else:
@@ -167,7 +167,7 @@ if __name__ == "__main__":
                                   ((df["mu1_pt"]>62)&(df["mu1_pt"]<=200)&EE),]
                     
                     for i in range(len(selections)):
-                        if  i==11:
+                        for i in [4,5,7]:
                             selection = selections[i]
                             df_i = df[(selection==True)]
                             print(df_i)

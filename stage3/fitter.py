@@ -2,7 +2,7 @@ import ROOT as rt
 import pandas as pd
 from python.workflow_noDask import non_parallelize
 from stage3.fit_plots import plot
-from stage3.fit_models import chebyshev, doubleCB, doubleCB_forZ, SumTwoExpPdf, bwZ, bwGamma, bwZredux, bernstein,BWxDCB,VoigtianxErf,Erf
+from stage3.fit_models import chebyshev, doubleCB, doubleCB_forZ, SumTwoExpPdf, bwZ, bwGamma, bwZredux, bernstein,BWxDCB,VoigtianxErf,Erf, BW, RooExp
 import pdb
 rt.RooMsgService.instance().setGlobalKillBelow(rt.RooFit.ERROR)
 #t.gSystem.Load ("../CMSSW_12_4_15/lib/el8_amd64_gcc10/libHiggsAnalysisCombinedLimit.so")
@@ -124,7 +124,7 @@ def fitter(args, parameters={}):
         category = 'All'
     
     if mode == "Z":
-        save_path = save_path + f"/calib_fits/BWxDCB/"
+        save_path = save_path + f"/calib_fits/BWxDCBexp/"
     else:
         save_path = save_path + f"/fits_{channel}_{category}/"
     mkdir(save_path)
@@ -423,10 +423,10 @@ class Fitter(object):
                 self.fitranges["high_Z"] = 94.6
             elif self.label=="Zfit_no_e_cut_UL_closure_cat1":
                 mh_ggh = rt.RooRealVar(
-                    "mh_ggh", "mh_ggh", 83, 97.5
+                    "mh_ggh", "mh_ggh", 83, 98.5
                 )
                 self.fitranges["low_Z"] = 83
-                self.fitranges["high_Z"] = 97.5
+                self.fitranges["high_Z"] = 98.5
             elif ("closure_cat9" in self.label):
                 mh_ggh = rt.RooRealVar(
                     "mh_ggh", "mh_ggh", 80, 101
@@ -604,13 +604,21 @@ class Fitter(object):
         tag = f"_{self.channel}_{category}"
         if model_name == "BWxDCB":
             DCB_forZ, params1 = doubleCB_forZ(self.workspace.obj("mh_ggh"), tag)
-            BW_forZ, params2 = bwZ(self.workspace.obj("mh_ggh"), tag)
-            self.workspace.Import(DCB_forZ)
-            self.workspace.Import(BW_forZ)
+            BW_forZ, params2 = BW(self.workspace.obj("mh_ggh"), tag)
+            #self.workspace.Import(DCB_forZ)
+            #self.workspace.Import(BW_forZ)
             self.workspace.obj("mh_ggh").setBins(200,"cache")
             self.workspace.obj("mh_ggh").setMin("cache",50.5) ;
             self.workspace.obj("mh_ggh").setMax("cache",130.5) ;
-            model = rt.RooFFTConvPdf(f"{model_name}{tag}",f"{model_name}{tag}",self.workspace.obj("mh_ggh"), BW_forZ, DCB_forZ) 
+            Signal_model = rt.RooFFTConvPdf(f"{model_name}{tag}_Sig",f"{model_name}{tag}_Sig",self.workspace.obj("mh_ggh"), BW_forZ, DCB_forZ) 
+            print(Signal_model)
+            #self.workspace.Import(Signal_model)
+            BKG_model, param3 = RooExp(self.workspace.obj("mh_ggh"), tag)
+            #self.workspace.Import(BKG_model)
+            sigfrac = rt.RooRealVar("sigfrac", "fraction of signal", 0.1, 0., 1.)
+            self.workspace.Import(sigfrac)
+            print(BKG_model)
+            model = rt.RooAddPdf("BWxDCB"+tag, "BWxDCB"+tag, rt.RooArgList(Signal_model,BKG_model), sigfrac)
             print(model)
         elif order is None:
             model, params = self.fitmodels[model_name](self.workspace.obj("mh_ggh"), tag)
@@ -628,8 +636,12 @@ class Fitter(object):
         model_key = model_name + tag
         if model_key not in self.model_registry:
             self.model_registry.append(model_key)
-        self.workspace.Import(model,rt.RooFit.RenameConflictNodes("_pdf"))
-        #getattr(self.workspace, "import")(model)
+        print("trying to import model")
+        #self.workspace.Import(model,rt.RooFit.RenameConflictNodes("_pdf"))
+        
+        #self.save_workspace("workspace_tetetst" )
+        getattr(self.workspace, "import")(model)
+        print("everything is imported")
 
     def fit(
         self,
@@ -867,8 +879,8 @@ class Fitter(object):
         for model_name in model_names_all:
             model_key = model_name + tag
             pdfs[model_key] = self.workspace.pdf(model_key)
-            print(model_key)
-            #print(pdfs[model_key])
+            #print(model_key)
+            print(self.workspace.pdf(model_key))
             if doProdPDF == True:
                 pdfs[model_key].fitTo(
                     self.workspace.obj("ratio_hist_for_fit"),
