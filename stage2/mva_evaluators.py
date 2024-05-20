@@ -3,7 +3,7 @@ import pickle
 import torch
 from stage2.mva_models import Net,NetSimple, NetPisaRun2, NetPisaRun2Combination, MvaCategorizer
 
-
+import pdb
 
 
 
@@ -121,7 +121,7 @@ def evaluate_pytorch_dnn(df, variation, model, parameters, score_name, channel):
     "dimuon_pt",
     "dimuon_pt_log",
     "dimuon_eta",
-    # "dimuon_ebe_mass_res",
+    #"dimuon_ebe_mass_res",
     # "dimuon_ebe_mass_res_rel",
     # "dimuon_cos_theta_cs",
     # "dimuon_phi_cs",
@@ -132,11 +132,11 @@ def evaluate_pytorch_dnn(df, variation, model, parameters, score_name, channel):
     "jet1_pt",
     "jet1_eta",
     "jet1_phi",
-    #"jet1_qgl",
+    "jet1_qgl",
     "jet2_pt",
     "jet2_eta",
     "jet2_phi",
-    #"jet2_qgl",
+    "jet2_qgl",
     "jj_mass",
     "jj_mass_log",
     "jj_dEta",
@@ -207,7 +207,7 @@ def evaluate_pytorch_dnn(df, variation, model, parameters, score_name, channel):
         """
         df.loc[eval_filter, score_name] = np.arctanh((dnn_model(df_i).detach().numpy()))
         #print(dnn_model(df_i).detach().numpy())
-    #print(df[score_name])
+    print(df[score_name])
     return df[score_name]
 
 
@@ -340,7 +340,9 @@ def evaluate_pytorch_dnn_pisa(
 
 
 def evaluate_bdt(df, variation, model, parameters, score_name):
-    training_features = ['dimuon_cos_theta_cs', 'dimuon_dEta', 'dimuon_dPhi', 'dimuon_dR', 'dimuon_eta', 'dimuon_phi', 'dimuon_phi_cs', 'dimuon_pt', 'dimuon_pt_log', 'jet1_eta_nominal', 'jet1_phi_nominal', 'jet1_pt_nominal', 'jet1_qgl_nominal', 'jet2_eta_nominal', 'jet2_phi_nominal', 'jet2_pt_nominal', 'jet2_qgl_nominal', 'jj_dEta_nominal', 'jj_dPhi_nominal', 'jj_eta_nominal', 'jj_mass_nominal', 'jj_mass_log_nominal', 'jj_phi_nominal', 'jj_pt_nominal', 'll_zstar_log_nominal', 'mmj1_dEta_nominal', 'mmj1_dPhi_nominal', 'mmj2_dEta_nominal', 'mmj2_dPhi_nominal', 'mmj_min_dEta_nominal', 'mmj_min_dPhi_nominal', 'mmjj_eta_nominal', 'mmjj_mass_nominal', 'mmjj_phi_nominal', 'mmjj_pt_nominal', 'mu1_eta', 'mu1_iso', 'mu1_phi', 'mu1_pt_over_mass', 'mu2_eta', 'mu2_iso', 'mu2_phi', 'mu2_pt_over_mass', 'zeppenfeld_nominal']
+   # training_features = ['dimuon_cos_theta_cs', 'dimuon_dEta', 'dimuon_dPhi', 'dimuon_dR', 'dimuon_eta', 'dimuon_phi', 'dimuon_phi_cs', 'dimuon_pt', 'dimuon_pt_log', 'jet1_eta_nominal', 'jet1_phi_nominal', 'jet1_pt_nominal', 'jet1_qgl_nominal', 'jet2_eta_nominal', 'jet2_phi_nominal', 'jet2_pt_nominal', 'jet2_qgl_nominal', 'jj_dEta_nominal', 'jj_dPhi_nominal', 'jj_eta_nominal', 'jj_mass_nominal', 'jj_mass_log_nominal', 'jj_phi_nominal', 'jj_pt_nominal', 'll_zstar_log_nominal', 'mmj1_dEta_nominal', 'mmj1_dPhi_nominal', 'mmj2_dEta_nominal', 'mmj2_dPhi_nominal', 'mmj_min_dEta_nominal', 'mmj_min_dPhi_nominal', 'mmjj_eta_nominal', 'mmjj_mass_nominal', 'mmjj_phi_nominal', 'mmjj_pt_nominal', 'mu1_eta', 'mu1_iso', 'mu1_phi', 'mu1_pt_over_mass', 'mu2_eta', 'mu2_iso', 'mu2_phi', 'mu2_pt_over_mass', 'zeppenfeld_nominal']
+    training_features = ['dimuon_cos_theta_cs', 'dimuon_eta', 'dimuon_phi_cs', 'dimuon_pt', 'jet1_eta_nominal', 'jet1_pt_nominal', 'jet2_eta_nominal', 'jet2_pt_nominal', 'jj_dEta_nominal', 'jj_dPhi_nominal', 'jj_mass_nominal', 'mmj1_dEta_nominal', 'mmj1_dPhi_nominal',  'mmj_min_dEta_nominal', 'mmj_min_dPhi_nominal', 'mu1_eta', 'mu1_pt_over_mass', 'mu2_eta', 'mu2_pt_over_mass', 'zeppenfeld_nominal', 'njets_nominal'] # AN 19-124
+    
     # if parameters["do_massscan"]:
     #     mass_shift = parameters["mass"] - 125.0
 
@@ -380,7 +382,6 @@ def evaluate_bdt(df, variation, model, parameters, score_name):
         scalers_path = f"{parameters['models_path']}/{model}/scalers_{model}_{i}.npy"
         scalers = np.load(scalers_path, allow_pickle=True)
         model_path = f"{parameters['models_path']}/{model}/{model}_{i}.pkl"
-
         bdt_model = pickle.load(open(model_path, "rb"))
         df_i = df[eval_filter]
         if df_i.shape[0] == 0:

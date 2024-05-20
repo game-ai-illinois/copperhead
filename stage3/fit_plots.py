@@ -45,7 +45,7 @@ def plotter(ws, objNames, isBlinded, channel, category, OutputFilename, title):
         elif "ds_fake" in name:
             ws.obj(name).plotOn(xframe, rt.RooFit.Binning(80))
         elif "ds" in name:
-            ws.data(name).plotOn(xframe, rt.RooFit.Binning(80))
+            ws.data(name).plotOn(xframe) #rt.RooFit.Binning(100))
     xframe.Draw()
     c.Update()
     c.SaveAs(OutputFilename + "_cat" + category + ".root")
@@ -73,7 +73,7 @@ def plot(fitter, ds_name, models, blinded, category, label, title, save_path):
     # dataset.plotOn(xframe,rt.RooFit.CutRange("sideband_left"))
     # dataset.plotOn(xframe,rt.RooFit.CutRange("sideband_right"))
     #ws.obj(ds_name).createHistogram("h_data_plot", rt.RooFit.Binning(80))
-    ws.obj(ds_name).plotOn(xframe, rt.RooFit.Binning(80),rt.RooFit.Name(ds_name) )
+    ws.obj(ds_name).plotOn(xframe, rt.RooFit.Binning(100),rt.RooFit.Name(ds_name) )
     #print('Hallo')
     leg0 = rt.TLegend(0.15 + offset, 0.6, 0.5 + offset, 0.82)
     leg0.SetFillStyle(0)

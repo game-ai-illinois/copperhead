@@ -118,6 +118,7 @@ parameters = {
     "local_cluster": local_cluster,
     "slurm_cluster_ip": slurm_cluster_ip,
     "global_path": "/depot/cms/hmm/vscheure/",
+    #"global_path": "/work/users/vscheure",
     #
     # < input data settings >
     # 'xrootd': True,
@@ -131,7 +132,7 @@ parameters = {
     "maxchunks": mch,
     #
     # < processing settings >
-    "regions": ["z-peak","h-sidebands", "h-peak" ],
+    "regions": ["h-sidebands", "h-peak" ],
     "pt_variations": pt_variations,
     "do_btag_syst": True,
     "save_output": True,
@@ -219,18 +220,18 @@ if __name__ == "__main__":
         # ],
         "data": [
             #'test_file_data_A',
-            #"data_A",
-            #"data_B",
-            #"data_C",
-            #"data_D",
-            #"data_E",
-            #"data_F",
-            #"data_G",
-            #"data_H",
+            "data_A",
+            "data_B",
+            "data_C",
+            "data_D",
+            "data_E",
+            "data_F",
+            "data_G",
+            "data_H",
        ],
         "signal": [
-            #"ggh_powheg",
-            #"vbf_powheg",
+            "ggh_powheg",
+            "vbf_powheg",
            # "ggh_amcPS",
             #"vbf_powhegPS",
             #"vbf_powheg_herwig",
@@ -248,7 +249,8 @@ if __name__ == "__main__":
             #"dy_2j",
             #"dy_m105_160_amc",
             # "dy_m105_160_mg",
-            #"dy_m105_160_vbf_amc",
+            "dy_m105_160_vbf_amc",
+            
             #"ewk_lljj_mll50_mjj120",
             # "ewk_lljj_mll105_160_py",
             #"ewk_lljj_mll105_160_ptj0",

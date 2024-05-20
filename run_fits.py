@@ -52,10 +52,11 @@ parameters = {
              "data_B",
              "data_C",
             "data_D",
+             "data_x"
             ],
-    #"regions": ["h-sidebands","h-peak"],
-    "regions": ["z-peak"],
-    "is_Z": True,
+    "regions": ["h-sidebands","h-peak"],
+    #"regions": ["z-peak"],
+    "is_Z": False,
     
     "syst_variations": ["nominal"],
 
@@ -63,7 +64,7 @@ parameters = {
 }
 
 parameters["datasets"] = [
-    "data_A",
+    #"data_A",
     #"data_B",
     #"data_C",
     #"data_D",
@@ -71,7 +72,7 @@ parameters["datasets"] = [
     #"data_F",
     #"data_G",
     #"data_H",
-    #"data_x",
+    "data_x",
     #"ggh_powheg",
 
 ]
@@ -108,20 +109,21 @@ if __name__ == "__main__":
 
             # read stage2 outputs
             for pat in path:
-                do_calib_fits=True
+                do_calib_fits=False
                 do_closure_fits=False
                 if not do_closure_fits:
                     df = pd.read_csv(f"{pat}/{dataset}.csv")
-                    #df_all = pd.read_csv(f"{pat}/{dataset}_nocats.csv")
+                    if parameters["is_Z"]==False:
+                        df_all = pd.read_csv(f"{pat}/{dataset}_nocats.csv")
                 if args.year[0] == "combined":
-                    columns_to_check = ["score_BDTperyear_2016postVFP_nominal", "score_BDTperyear_2016preVFP_nominal", "score_BDTperyear_2017_nominal", "score_BDTperyear_2018_nominal"]
+                    columns_to_check = ["score_ggHnew_2016postVFP_nominal", "score_ggHnew_2016preVFP_nominal", "score_ggHnew_2017_nominal", "score_ggHnew_2018_nominal"]
                 #else:
                     #columns_to_check = [f"score_BDTperyear_{args.year[0]}_nominal"]
                     #columns_to_check = [f"score_BDTperyear_{args.year[0]}_nominal"]
 
                 # Drop rows where all specified columns have NaN values
                 #df_all_filtered = df_all.dropna(subset=columns_to_check, how='all')
-                #print(df.keys)
+                print(df.keys)
                 
 
                 if do_calib_fits:
@@ -167,7 +169,7 @@ if __name__ == "__main__":
                                   ((df["mu1_pt"]>62)&(df["mu1_pt"]<=200)&EE),]
                     
                     for i in range(len(selections)):
-                        for i in [4,5,7]:
+                        if i in range(0,12):
                             selection = selections[i]
                             df_i = df[(selection==True)]
                             print(df_i)
@@ -185,4 +187,5 @@ if __name__ == "__main__":
 
                 else:
                     tag = ""
+                    print("Running fits")
                     run_fits(parameters, df,df_all,tag)

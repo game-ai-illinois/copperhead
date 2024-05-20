@@ -2,10 +2,11 @@ import glob
 from stage2.categorizer import split_into_channels, categorize_dnn_output_ggh
 from stage2.mva_evaluators import evaluate_bdt
 from python.io import load_dataframe
+import argparse
 
 parameters = {
     "global_path": "/depot/cms/hmm/vscheure/",
-    "label": "Nanov12withBS",
+    "label": "v9withRun3",
     "channels": ["ggh"],
     "custom_npartitions": {
         "ggh_powheg": 1,
@@ -16,19 +17,30 @@ parameters = {
 dataset = "ggh_powheg"
 #model_name = "pytorch_may18"
 #model_name = "pytorch_may24_pisa"
-model_name = "BDTv12_2018"
-score_name = f"score_{model_name}_nominal"
+
+
 channel = "ggh"
 region = "h-peak"
 label = parameters["label"]
-
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--BDT",
+    dest="BDTname",
+    default="ggHnew",
+    action="store",
+    help="Name of BDT model",
+)
+args = parser.parse_args()
+BDTname = args.BDTname
 #for year in ["2016", "2017", "2018"]:
 for year in ["2018"]:
     print(year)
     if year == "2016":
-        yearstr = "2016postVFP"
+        yearstr = "2016preVFP"
     else:
         yearstr = year
+    model_name = f"{BDTname}_{yearstr}"
+    score_name = f"score_{model_name}_nominal"
     #paths = glob.glob(f"/depot/cms/hmm/coffea/{year}_2022apr6/{dataset}/*.parquet")
     paths = glob.glob(f"/depot/cms/hmm/vscheure/{label}/stage1_output/{yearstr}/{dataset}/*.parquet")
 

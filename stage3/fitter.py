@@ -5,7 +5,7 @@ from stage3.fit_plots import plot
 from stage3.fit_models import chebyshev, doubleCB, doubleCB_forZ, SumTwoExpPdf, bwZ, bwGamma, bwZredux, bernstein,BWxDCB,VoigtianxErf,Erf, BW, RooExp
 import pdb
 rt.RooMsgService.instance().setGlobalKillBelow(rt.RooFit.ERROR)
-#t.gSystem.Load ("../CMSSW_12_4_15/lib/el8_amd64_gcc10/libHiggsAnalysisCombinedLimit.so")
+#rt.gSystem.Load ("../CMSSW_12_4_15/lib/el8_amd64_gcc10/libHiggsAnalysisCombinedLimit.so")
 simple = False
 def mkdir(path):
     try:
@@ -191,7 +191,7 @@ def fitter(args, parameters={}):
             blinded=blinded,
             model_names_multi=["SumTwoExpPdf", "bwz_redux",],
             model_names=["bernstein"],#"bernstein"],
-            orders = {"bernstein": [2],
+            orders = {"bernstein": [3],
                       #"bernstein": [4]
                      },
             fix_parameters=False,
@@ -220,6 +220,7 @@ def fitter(args, parameters={}):
             title="Background",
             save=True,
             save_path=save_path,
+            binned=False,
             norm=norm,
          )
         # generate and fit pseudo-data
@@ -466,7 +467,8 @@ class Fitter(object):
         mh_ggh.SetTitle("m_{#mu#mu}")
         mh_ggh.setUnit("GeV")
         if binned:
-            mh_ggh.setBins(30)
+            mh_ggh.setBins(100)
+            print("Setting binning to 100 bins")
         w.Import(mh_ggh)
         #getattr(w, "import")(mh_ggh)
         # w.Print()
@@ -583,11 +585,15 @@ class Fitter(object):
             if (datum < x.getMax()) and (datum > x.getMin()):
                 x.setVal(datum)
                 ds.add(cols)
-        if binned:
-            x.setBins(30)
+        if binned == False:
+            return ds
+        else:
+            #x.setBins(200)
             cols_binned = rt.RooArgSet(x)
-            ds = rt.RooDataHist(ds_name, ds_name, cols_binned ,ds)
-        return ds
+            print("Making binned dataset")
+            ds_binned = rt.RooDataHist(ds_name, ds_name, cols_binned ,ds)
+            return ds_binned
+        
 
     def generate_data(self, model_name, category, xSec, lumi):
         tag = f"_{self.channel}_{category}"
@@ -881,12 +887,14 @@ class Fitter(object):
             pdfs[model_key] = self.workspace.pdf(model_key)
             #print(model_key)
             print(self.workspace.pdf(model_key))
+            #rt.EnableImplicitMT()
             if doProdPDF == True:
                 pdfs[model_key].fitTo(
                     self.workspace.obj("ratio_hist_for_fit"),
                     rt.RooFit.Save(),
                     rt.RooFit.PrintLevel(0),
                     rt.RooFit.AsymptoticError(1),
+                    #t.RooFit.BatchMode("cpu"),
                     rt.RooFit.Verbose(rt.kFALSE),
                 )
             else:
@@ -896,6 +904,7 @@ class Fitter(object):
                     rt.RooFit.PrintLevel(-1),
                     #rt.RooFit.AsymptoticError(1),
                     rt.RooFit.PrefitDataFraction(0.01),
+                    rt.RooFit.BatchMode("cpu"),
                     #rt.RooFit.Minimizer("Minuit2","minimize"),
                     rt.RooFit.Verbose(rt.kFALSE),
                 )

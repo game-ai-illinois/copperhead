@@ -463,6 +463,7 @@ class DimuonProcessor(processor.ProcessorABC):
         jets = df.Jet
 
         self.do_jec = True
+        
 
 
         jets = apply_jec(
@@ -598,7 +599,7 @@ class DimuonProcessor(processor.ProcessorABC):
 
         
         do_zpt = ('dy' in dataset)
-        #do_zpt = False
+        #do_zpt = False # Trun off for testing
         if do_zpt:
             output["njets"] = output["njets"].fillna(0.0)
             zpt_weight = np.ones(numevents, dtype=float) 
@@ -772,6 +773,7 @@ class DimuonProcessor(processor.ProcessorABC):
             pass_jet_puid = jet_puid(jets, self.parameters, self.year)
 
         # Jet PUID scale factors
+        
         if is_mc and self.is_v9:  # puID field not available in Nanov12
             jet_puid_opt = self.parameters["jet_puid"]
             pt_name = "pt"
@@ -781,7 +783,7 @@ class DimuonProcessor(processor.ProcessorABC):
                 jet_puid_opt, pass_jet_puid, numevents
             )
             weights.add_weight('puid_wgt', puid_weight)
-
+   
         # ------------------------------------------------------------#
         # Select jets
         # ------------------------------------------------------------#

@@ -2,6 +2,7 @@ import dask.dataframe as dd
 import pandas as pd
 from itertools import chain
 
+#from python.workflow_noDask import non_parallelize
 from python.workflow import parallelize
 from python.io import (
     delete_existing_stage2_hists,
@@ -55,6 +56,7 @@ def process_partitions(client, parameters, df):
         argset["df"] = [(i, df.partitions[i]) for i in range(df.npartitions)]
     # perform categorization, evaluate mva models, fill histograms
     print("starting parallelize")
+    #all_dfs = nonparallelize(on_partition, argset, client, parameters,seq=False)
     all_dfs = parallelize(on_partition, argset, client, parameters,seq=False)
     hist_info_df_full = all_dfs[0][0]
     df_new = all_dfs[0][1]
@@ -120,6 +122,7 @@ def on_partition(args, parameters):
     # VBF filter
     if "dy_m105_160_amc" in dataset:
         df = df[df.gjj_mass <= 350]
+    
     if "dy_m105_160_vbf_amc" in dataset:
         df = df[df.gjj_mass > 350]
 
@@ -206,7 +209,6 @@ def on_partition(args, parameters):
                 df.loc[df[f"channel_{v}"] == channel, score_name] = evaluate_bdt(
                     df[df[f"channel_{v}"] == channel], v, model, parameters, score_name
                 )
-    #print(df)
     # < add secondary categorization / binning here >
     # ...
 
@@ -218,6 +220,7 @@ def on_partition(args, parameters):
             if model_name not in parameters["mva_bins_original"]:
                 continue
             score_name = f"score_{model_name}_nominal"
+            #print(df[score_name])
             if score_name in df.columns:
                 mva_bins = parameters["mva_bins_original"][model_name][str(year)]
                 for i in range(len(mva_bins) - 1):
@@ -226,8 +229,8 @@ def on_partition(args, parameters):
                     cut = (df[score_name] > lo) & (df[score_name] <= hi)
                     df.loc[cut, "bin_number"] = i
                 df[score_name] = df["bin_number"]
-                print(df[score_name])
-                print('wrong here')
+                #print(df[score_name])
+                #print('wrong here')
                 parameters["mva_bins"].update(
                     {
                         model_name: {
@@ -259,13 +262,15 @@ def on_partition(args, parameters):
     ]
     df_for_fits = df
     #print(categories)
-    #print(df_for_fits)
+    #print("Before returning DF")
+    df_print = df_for_fits[df_for_fits.channel_nominal == "vbf"]
+    #print(df_print["score_ValerieDNNtest2_nominal"])
     #print(df[df[f"channel_{v}"] == channel]["category"])
     # < convert desired columns to histograms >
     # not parallelizing for now - nested parallelism leads to a lock
     hist_info_rows = []
     for var_name in parameters["hist_vars"]:
-        print("making histograms")
+        #print("making histograms")
         hist_info_row = make_histograms(
             df, var_name, year, dataset, regions, channels, categories, npart, parameters
         )
@@ -281,6 +286,7 @@ def on_partition(args, parameters):
                     f"{dataset}_{suff}",
                     regions,
                     channels,
+                    categories,
                     npart,
                     parameters,
                 )

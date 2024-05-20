@@ -12,7 +12,7 @@ datasets = {
         "dy_1j": "/store/mc/RunIISummer20UL16NanoAODAPVv9/DY1JetsToLL_M-50_MatchEWPDG20_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1",
         "dy_2j": "/store/mc/RunIISummer20UL16NanoAODAPVv9/DY2JetsToLL_M-50_MatchEWPDG20_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1",
         #"dy_m105_160_amc": 
-        #"dy_m105_160_vbf_amc": 
+        
         #"dy_m105_160_mg": 
         #"dy_m105_160_vbf_mg":
         "ttjets_dl": "/store/mc/RunIISummer20UL16NanoAODAPVv9/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1",
@@ -155,6 +155,7 @@ datasets = {
         #"dy_2j": "/store/mc/RunIISummer20UL17NanoAODv9/DY2JetsToLL_M-50_MatchEWPDG20_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/106X_mc2017_realistic_v9-v1",
         #"dy_m105_160_amc": "/store/group/local/hmm/nanoAODv6_private/FSRmyNanoProdMc2017_NANOV4i/DYJetsToLL_M-105To160_TuneCP5_PSweights_13TeV-amcatnloFXFX-pythia8/",
         #"dy_m105_160_vbf_amc": "/store/group/local/hmm/nanoAODv6_private/FSRmyNanoProdMc2017_NANOV4b/DYJetsToLL_M-105To160_VBFFilter_TuneCP5_PSweights_13TeV-amcatnloFXFX-pythia8/",
+        "dy_m105_160_vbf_amc":  "/store/user/vscheure/DYJetsToLL_M-105To160_VBFFilter_TuneCP5_PSweights_13TeV-amcatnloFXFX-pythia8/UL18_Nano",
         #"dy_m105_160_mg": "/store/group/local/hmm/nanoAODv6_private/FSRmyNanoProdMc2017_NANOV4h/DYJetsToLL_M-105To160_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8/",
         #"dy_m105_160_vbf_mg": "/store/group/local/hmm/nanoAODv6_private/FSRmyNanoProdMc2017_NANOV4b/DYJetsToLL_M-105To160_VBFFilter_TuneCP5_13TeV-madgraphMLM-pythia8/",
         "ttjets_dl": "/store/mc/RunIISummer20UL18NanoAODv9/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/",

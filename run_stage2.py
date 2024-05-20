@@ -62,9 +62,9 @@ parameters = {
     #"channels": ["ggh_0jets","ggh_1jet","ggh_2orMoreJets"],
     #"channels": ["none"],
     "channels": [ "ggh"],
-        "category": ["cat1","cat2","cat3","cat4","cat5"],
-    #"category": ["All"],
-    #"mva_channels": ["ggh"],
+    #"category": ["cat1","cat2","cat3","cat4","cat5"],
+    "category": ["All"],
+    "mva_channels": ["vbf"],
     #"cats_by_score": True,
     "cats_by_score": False,
     "cats_by_eta": False,
@@ -75,7 +75,7 @@ parameters = {
     "data": [ "data_x",
             ],
     "regions": ["h-sidebands","h-peak"],
-    #"regions": ["h-peak"],
+    #"regions": ["none"],
     #"regions": ["z-peak"],
     "syst_variations": ["nominal"],
     # "custom_npartitions": {
@@ -84,7 +84,11 @@ parameters = {
     #
     # < settings for histograms >
     #"hist_vars":  ["dimuon_mass","dimuon_pt"],
-    "hist_vars":  ["dimuon_mass","dimuon_pt","dimuon_ebe_mass_res", "mu1_eta",'mu2_eta',"mu1_phi",'mu2_phi',"mu1_pt","dimuon_ebe_mass_res_raw","zpt_weight","dimuon_cos_theta_cs","zeppenfeld","jj_dEta","dimuon_phi_cs","jj_mass","dimuon_dR","njets","njets","mmj_min_dEta","mmj2_dPhi","jet1_eta", "jet1_phi",'jet1_qgl',"jet2_eta", "jet2_phi",'jet2_qgl', 'mu2_iso','jet2_pt','jet1_pt','mu2_pt'],    #['dimuon_cos_theta_cs', 'dimuon_dEta', 'dimuon_dPhi', 'dimuon_dR',  'dimuon_phi', 'dimuon_phi_cs', 'dimuon_pt', 'dimuon_pt_log', 'jet1_eta', 'jet1_phi', 'jet1_pt', 'jet1_qgl', 'jet2_eta', 'jet2_phi', 'jet2_pt', 'jet2_qgl', 'jj_dEta', 'jj_dPhi', 'jj_eta', 'jj_mass', 'jj_mass_log', 'jj_phi', 'jj_pt', 'll_zstar_log', 'mmj1_dEta', 'mmj1_dPhi', 'mmj2_dEta', 'mmj2_dPhi', 'mmj_min_dEta', 'mmj_min_dPhi', 'mmjj_eta', 'mmjj_mass', 'mmjj_phi', 'mmjj_pt', 'mu1_eta', 'mu1_iso', 'mu1_phi', 'mu1_pt_over_mass', 'mu2_eta', 'mu2_iso', 'mu2_phi', 'mu2_pt_over_mass', 'zeppenfeld'],
+    "hist_vars": ["dimuon_phi_cs_pisa","dimuon_phi_cs", "dimuon_cos_theta_cs_pisa", "dimuon_cos_theta_cs"],
+    
+    #"hist_vars": ["dimuon_mass",'dimuon_cos_theta_cs', 'dimuon_eta', 'dimuon_phi_cs','dimuon_phi_cs_pisa', 'dimuon_pt', 'jet1_eta', 'jet1_pt', 'jet2_pt_nominal', 'jj_dEta', 'jj_dPhi', 'jj_mass', 'mmj1_dEta', 'mmj1_dPhi',  'mmj_min_dEta', 'mmj_min_dPhi', 'mu1_eta', 'mu1_pt_over_mass', 'mu2_eta', 'mu2_pt_over_mass', 'zeppenfeld', 'njets',"dimuon_ebe_mass_res"],
+    
+    #"hist_vars":  ["dimuon_mass","dimuon_pt","dimuon_ebe_mass_res", "mu1_eta",'mu2_eta',"mu1_phi",'mu2_phi',"mu1_pt","dimuon_ebe_mass_res_raw","zpt_weight","dimuon_cos_theta_cs","zeppenfeld","jj_dEta","jj_dPhi","dimuon_phi_cs","jj_mass","dimuon_dR","njets","njets","mmj_min_dEta","mmj2_dPhi","jet1_eta", "jet1_phi",'jet1_qgl',"jet2_eta", "jet2_phi",'jet2_qgl', 'mu2_iso','jet2_pt','jet1_pt','mu2_pt'],    #['dimuon_cos_theta_cs', 'dimuon_dEta', 'dimuon_dPhi', 'dimuon_dR',  'dimuon_phi', 'dimuon_phi_cs', 'dimuon_pt', 'dimuon_pt_log', 'jet1_eta', 'jet1_phi', 'jet1_pt', 'jet1_qgl', 'jet2_eta', 'jet2_phi', 'jet2_pt', 'jet2_qgl', 'jj_dEta', 'jj_dPhi', 'jj_eta', 'jj_mass', 'jj_mass_log', 'jj_phi', 'jj_pt', 'll_zstar_log', 'mmj1_dEta', 'mmj1_dPhi', 'mmj2_dEta', 'mmj2_dPhi', 'mmj_min_dEta', 'mmj_min_dPhi', 'mmjj_eta', 'mmjj_mass', 'mmjj_phi', 'mmjj_pt', 'mu1_eta', 'mu1_iso', 'mu1_phi', 'mu1_pt_over_mass', 'mu2_eta', 'mu2_iso', 'mu2_phi', 'mu2_pt_over_mass', 'zeppenfeld'],
     
 
     "variables_lookup": variables_lookup,
@@ -130,29 +134,29 @@ parameters = {
     # "mva_categorizer": "3layers_64_32_16_all_feat",
     # "vbf_mva_cutoff": 0.5,
     "bdt_models": {
-         #"ggh": ["ggHnew"],
+         #"ggh": ["ANBDT2"],
     },
     "mva_bins_original": mva_bins,
 }
 
 parameters["datasets"] = [
-    "data_A",
-    "data_B",
-    "data_C",
-    "data_D",
-    "data_E",
-    "data_F",
-    "data_G",
-    "data_H",
+    #"data_A",
+    #"data_B",
+    #"data_C",
+    #"data_D",
+    #"data_E",
+    #"data_F",
+    #"data_G",
+    #"data_H",
     #"data_x",
     #"dy_M-50",
     #"dy_M-50_nocut",
-    "dy_M-100To200",
+    #"dy_M-100To200",
     #"dy_1j",
     #"dy_2j",
     #"dy_m105_160_amc",
     #"dy_m105_160_vbf_amc",
-    #"ewk_lljj_mll105_160_py_dipole",
+    ##"ewk_lljj_mll105_160_py_dipole",
     #"ewk_lljj_mll50_mjj120",
     #"ttjets_dl",
     #"ttjets_sl",
@@ -170,7 +174,7 @@ parameters["datasets"] = [
     #wzz",
     #"zzz",
     "ggh_powheg",
-    "vbf_powheg",
+    #"vbf_powheg",
 ]
 # using one small dataset for debugging
 #parameters["datasets"] = ["ggh_localTest"]
@@ -204,7 +208,8 @@ if __name__ == "__main__":
     #bdt_models = list(parameters["bdt_models"].values())
     for models in dnn_models + bdt_models:
        for model in models:
-            parameters["hist_vars"] += ["score_" + model + "_" + str(args.year[0])]
+            #parameters["hist_vars"] += ["score_" + model + "_" + str(args.year[0])]
+            parameters["hist_vars"] += ["score_" + model]
             print( parameters["hist_vars"])
     
     # prepare lists of paths to parquet files (stage1 output) for each year and dataset
@@ -244,7 +249,7 @@ if __name__ == "__main__":
             df = load_dataframe(client, parameters, inputs=[path], dataset=dataset)
             #for i in range(0, len(df.columns), 10):
                # print(df.compute().columns[i:i+10])
-            #pdb.set_trace()
+            
             if dataset == "data_x":
                 df = df.compute()
                 df.loc[df.dataset=="data_A", "dataset"] = "data_x"
@@ -256,7 +261,8 @@ if __name__ == "__main__":
                 df.loc[df.dataset=="data_G", "dataset"] = "data_x"
                 df.loc[df.dataset=="data_H", "dataset"] = "data_x"
             print("have df, starting to compute")
-            #print(df.compute())
+           
+            #pdb.set_trace()
             #if not isinstance(df, dd.DataFrame):
                 #print("Dataframe not in correct format")
                 #continue
@@ -265,6 +271,17 @@ if __name__ == "__main__":
             print("processing done starting svaing csvs")
             do_calib = False
             do_closure = False
+            save_fit_data = False
+            if save_fit_data:
+
+                columns_to_store = ["dataset","region","channel_nominal","category","dimuon_mass", f"score_ANBDT_{args.year[0]}_nominal", "wgt_nominal"]
+                #columns_to_store = ["dataset","region","channel_nominal"]
+                df_store = df[columns_to_store]
+        
+                    
+                
+                save_stage2_output_to_csv(df_store.loc[(df_store["channel_nominal"] == "ggh")],out_dir, f"{dataset}")
+            
             BB = ((abs(df["mu1_eta"])<=0.9) & (abs(df["mu2_eta"])<=0.9))
             BO = ((abs(df["mu1_eta"])<=0.9) & ((abs(df["mu2_eta"])>0.9) & (abs(df["mu2_eta"]) <=1.8)))
             BE = ((abs(df["mu1_eta"])<=0.9) & ((abs(df["mu2_eta"])>1.8) & (abs(df["mu2_eta"]) <=2.4)))

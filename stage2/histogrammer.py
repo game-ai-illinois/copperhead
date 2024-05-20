@@ -9,8 +9,8 @@ from python.io import save_stage2_output_hists
 
 def make_histograms(df, var_name, year, dataset, regions, channels, categories, npart, parameters):
     # try to get binning from config
-    if "BDT" in var_name:
-        var_name = f"{var_name}_{year}"
+    #if "BDT" in var_name:
+        #var_name = f"{var_name}_{year}"
     if var_name in parameters["variables_lookup"].keys():
         var = parameters["variables_lookup"][var_name]
     else:
@@ -27,7 +27,7 @@ def make_histograms(df, var_name, year, dataset, regions, channels, categories, 
     syst_variations = parameters.get("syst_variations", ["nominal"])
     variations = []
     for w in wgt_variations:
-        print(w)
+        #print(w)
         for v in syst_variations:
             variation = get_variation(w, v)
             if variation:
@@ -47,16 +47,17 @@ def make_histograms(df, var_name, year, dataset, regions, channels, categories, 
         #print(var.name)
         if "ggH" in var.name: 
             model_name = var.name.replace("score_", "").replace("_nominal", "")
-            model_name = f"{model_name}_{year}"
+            #model_name = f"{model_name}_{year}"
         else:
             model_name = var.name.replace("score_", "").replace("_nominal", "")
+            print(model_name)
         if "mva_bins" in parameters.keys():
             if model_name in parameters["mva_bins"].keys():
-                #print(parameters["mva_bins"][model_name])
+                print(parameters["mva_bins"][model_name])
                 bins = parameters["mva_bins"][model_name][f"{year}"]
             else:
                 bins = np.arange(41) / 40.0
-                #print( model_name)
+                print( model_name)
         else:
             bins = np.arange(41) / 40.0
         hist = hist.Var(bins, name=var.name)
@@ -151,8 +152,8 @@ def make_histograms(df, var_name, year, dataset, regions, channels, categories, 
     # (partitions will be joined in stage3)
     save_hists = parameters.get("save_hists", False)
     if save_hists:
-        #if "score" in var.name:
-            #print(var.name)
+        if "score" in var.name:
+            print(var.name)
         save_stage2_output_hists(hist, var.name, dataset, year, parameters, npart)
 
     # return info for debugging
