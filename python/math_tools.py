@@ -150,6 +150,12 @@ def invert(rot):
 
 # https://github.com/arizzi/PisaHmm/blob/master/boost_to_CS.h
 def cs_variables_pisa(mu1, mu2):
+    mu_neg = mu1.where((mu1.charge < 0), mu2)
+    mu_pos = mu1.where((mu1.charge > 0), mu2)
+    # overwrite mu1 and mu2 in terms of mu_neg and mu_pos
+    mu1 = mu_neg 
+    mu2 = mu_pos
+    
     multiplier = mu2.charge
     mu1_px = mu1.pt * np.cos(mu1.phi)
     mu1_py = mu1.pt * np.sin(mu1.phi)
@@ -226,3 +232,4 @@ def delta_r(eta1, eta2, phi1, phi2):
 
 def max_abs_eta(row):
     return max(abs(row["mu1_eta"]), abs(row["mu2_eta"]))
+
