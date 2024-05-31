@@ -6,7 +6,7 @@ import argparse
 
 parameters = {
     "global_path": "/depot/cms/hmm/vscheure/",
-    "label": "v9withRun3",
+    "label": "phifixed",
     "channels": ["ggh"],
     "custom_npartitions": {
         "ggh_powheg": 1,
@@ -33,10 +33,10 @@ parser.add_argument(
 args = parser.parse_args()
 BDTname = args.BDTname
 #for year in ["2016", "2017", "2018"]:
-for year in ["2018"]:
+for year in ["2016"]:
     print(year)
     if year == "2016":
-        yearstr = "2016preVFP"
+        yearstr = "2016postVFP"
     else:
         yearstr = year
     model_name = f"{BDTname}_{yearstr}"

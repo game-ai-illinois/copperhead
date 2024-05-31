@@ -220,19 +220,19 @@ if __name__ == "__main__":
         # ],
         "data": [
             #'test_file_data_A',
-            "data_A",
-            "data_B",
-            "data_C",
-            "data_D",
-            "data_E",
+            #"data_A",
+            #"data_B",
+            #"data_C",
+            #"data_D",
+            #"data_E",
             "data_F",
             "data_G",
             "data_H",
        ],
         "signal": [
-            "ggh_powheg",
-            "vbf_powheg",
-           # "ggh_amcPS",
+            #"ggh_powheg",
+            #"vbf_powheg",
+            #"ggh_amcPS",
             #"vbf_powhegPS",
             #"vbf_powheg_herwig",
             #"vbf_powheg_dipole",
@@ -249,7 +249,7 @@ if __name__ == "__main__":
             #"dy_2j",
             #"dy_m105_160_amc",
             # "dy_m105_160_mg",
-            "dy_m105_160_vbf_amc",
+            #"dy_m105_160_vbf_amc",
             
             #"ewk_lljj_mll50_mjj120",
             # "ewk_lljj_mll105_160_py",
@@ -295,7 +295,7 @@ if __name__ == "__main__":
                 #    continue
                 datasets_mc.append(sample)
 
-    to_process = {"MC": datasets_mc, "DATA": datasets_data}
+    to_process = {"DATA": datasets_data, "MC": datasets_mc}
     for lbl, datasets in to_process.items():
         if len(datasets) == 0:
             print("No datasets!!")
