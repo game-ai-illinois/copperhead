@@ -107,9 +107,13 @@ def plot(args, parameters={}):
         var = parameters["variables_lookup"][var_name]
     else:
         if "score" in var_name:
-            var = Variable(var_name, var_name, 50, 0, 7)
+            var = Variable(var_name, var_name, 50, 0, 13)
         else:
             var = Variable(var_name, var_name, 20, 0, 5)
+        if "BDT" in var_name:
+            var = Variable(var_name, var_name, 50, 0, 1)
+        else:
+            var = Variable(var_name, var_name, 20, 0, 13)
             
     if hist.shape[0] == 0:
         return

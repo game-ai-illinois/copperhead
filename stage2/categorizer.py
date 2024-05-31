@@ -53,7 +53,8 @@ def categorize_by_score(df, scores, mode="uniform",year="2018", **kwargs):
                 #df["category"] = "cat0"
                 #score_ggh = df[df.loc[(df.channel_nominal == channel) & (df.dataset == "ggh_powheg"), f"score_{score_name}_nominal"]]
                 signal_eff_bins = {}
-                signal_eff_bins["2018"] = [0.0, 0.3136301338672638, 0.4603824317455292, 0.5341461896896362, 0.652934730052948, 1.0] # ANBDT
+                #signal_eff_bins["2018"] = [0.0, 0.3136301338672638, 0.4603824317455292, 0.5341461896896362, 0.652934730052948, 1.0] # ANBDT
+                signal_eff_bins["2018"] = [0.0, 0.5598355531692505, 0.7039323449134827, 0.7600095272064209, 0.8344821333885193, 1.0] # phifixedBDT
                                             #[0.0,
                                              #0.3267008364200592,
                                              #0.5182704925537109, 
@@ -81,24 +82,27 @@ def categorize_by_score(df, scores, mode="uniform",year="2018", **kwargs):
                                            #0.8094207644462585, 
                                            #1]#BDTperyear
 
-                signal_eff_bins["2017"] = [0.0, 
-                                            0.30920061469078064, 
-                                           0.4618540108203888, 
-                                           0.5356012582778931, 
-                                           0.6596264243125916,
-                                           1]#ggHnew
-                signal_eff_bins["2016postVFP"] = [0.0, 
-                                                  0.1889389306306839, 
-                                                  0.3137381970882416, 
-                                                  0.3806607723236084,
-                                                  0.5048549175262451,
-                                                  1]#ggHnew
-                signal_eff_bins["2016preVFP"] = [0.0, 
-                                                 0.18713465332984924, 
-                                                 0.3042049705982208, 
-                                                 0.37392279505729675, 
-                                                 0.516726553440094, 
-                                                 1]#ggHnew                     
+                signal_eff_bins["2017"] = [0.0, 0.5503765940666199, 0.7048683762550354, 0.7688102722167969, 0.8493096232414246, 1.0] #phifixedBDT
+                
+                                            #0.30920061469078064, 
+                                           #0.4618540108203888, 
+                                           #0.5356012582778931, 
+                                           #0.6596264243125916,
+                                           #1]#ggHnew
+                signal_eff_bins["2016postVFP"] = [0.0, 0.3555785119533539, 0.5256125926971436, 0.6074876189231873, 0.7241108417510986, 1.0] #phifixedBDT
+                #signal_eff_bins["2016postVFP"] = [0.0, 
+                                                  #0.1889389306306839, 
+                                                  #0.3137381970882416, 
+                                                  #0.3806607723236084,
+                                                  #0.5048549175262451,
+                                                  #1]#ggHnew
+                signal_eff_bins["2016preVFP"] = [0.0, 0.5685752034187317, 0.7218873500823975, 0.7840449213981628, 0.8632153868675232, 1.0]
+                #signal_eff_bins["2016preVFP"] = [0.0, 
+                                                 #0.18713465332984924, 
+                                                 #0.3042049705982208, 
+                                                 #0.37392279505729675, 
+                                                 #0.516726553440094, 
+                                                 #1]#ggHnew                     
                 #signal_eff_bins["2017"] = [0.0, 
                                            #0.33528196811676025, 
                                            #0.5249117016792297, 
@@ -286,13 +290,13 @@ def categorize_dnn_output(df, score_name, channel, region, year, yearstr):
 
     bins = [df[score_name].max()]
     #print(bins)
-    #print(channel)
+    print(channel)
     print(region)
-    #print(year)
+    print(year)
     
-    slicer = (
-        (df.channel_nominal == channel) & ((df.region == "h-peak") or (df.region == "h-sidebands")) & (df.year == yearstr)
-    )
+    #slicer = ((df.channel_nominal == channel) & ((df.region == "h-peak") or (df.region == "h-sidebands")) & (df.year == yearstr))
+
+    slicer = ((df.channel_nominal == channel) & (df.year == yearstr))
     df_sorted = (
         df.loc[slicer, :]
         .sort_values(by=score_name, ascending=False)
@@ -321,7 +325,7 @@ def categorize_dnn_output(df, score_name, channel, region, year, yearstr):
                 last_yield = tot_yield
     bins.append(0.0)
     bins = sorted(bins)
-    #print(bins)
+    print(bins)
 def categorize_dnn_output_ggh(df, score_name, channel, region, year, yearstr):
     # Run 2 (ggh yields)
     target_yields = [0.05,0.2,0.35,0.7,1]

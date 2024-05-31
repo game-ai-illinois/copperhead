@@ -18,7 +18,7 @@ def make_histograms(df, var_name, year, dataset, regions, channels, categories, 
     #print(var_name)
 
     # prepare list of systematic variations
-    do_variations = False
+    do_variations = True
     if do_variations:
         wgt_variations = [w for w in df.columns if (("wgt_" in w) and ("nominal" not in w))]
     else: 
@@ -50,14 +50,15 @@ def make_histograms(df, var_name, year, dataset, regions, channels, categories, 
             #model_name = f"{model_name}_{year}"
         else:
             model_name = var.name.replace("score_", "").replace("_nominal", "")
-            print(model_name)
+            #print(model_name)
         if "mva_bins" in parameters.keys():
             if model_name in parameters["mva_bins"].keys():
-                print(parameters["mva_bins"][model_name])
+                #print(parameters["mva_bins"][model_name])
                 bins = parameters["mva_bins"][model_name][f"{year}"]
+                #print(bins)
             else:
                 bins = np.arange(41) / 40.0
-                print( model_name)
+                #print( model_name)
         else:
             bins = np.arange(41) / 40.0
         hist = hist.Var(bins, name=var.name)
@@ -152,8 +153,8 @@ def make_histograms(df, var_name, year, dataset, regions, channels, categories, 
     # (partitions will be joined in stage3)
     save_hists = parameters.get("save_hists", False)
     if save_hists:
-        if "score" in var.name:
-            print(var.name)
+        #if "score" in var.name:
+            #print(var.name)
         save_stage2_output_hists(hist, var.name, dataset, year, parameters, npart)
 
     # return info for debugging
