@@ -26,7 +26,7 @@ def run_fits(parameters, df,df_all,tag):
         fit_setups.append(fit_setup)
         argset = {
             "fit_setup": fit_setups,
-            "channel": parameters["mva_channels"],
+            "channel": parameters["channels"],
             "category": ["All"]
         }
         fit_ret = non_parallelize(fitter, argset, parameters)
@@ -124,7 +124,7 @@ def fitter(args, parameters={}):
         category = 'All'
     
     if mode == "Z":
-        save_path = save_path + f"/calib_fits/Voigtian/"
+        save_path = save_path + f"/calib_fits/Voigtian/2016preVFP/"
     else:
         save_path = save_path + f"/fits_{channel}_{category}/"
     mkdir(save_path)
@@ -132,11 +132,11 @@ def fitter(args, parameters={}):
     #with channel selection
     #df = df[(df.channel_nominal == channel) & (df.category == category)]
     #without chennel selection
-    df = df[(df.category == category)]
+    #df = df[(df.category == category)]
     #print(channel)
     #print(category)
-    #print("in fitter")
-    #print(df)
+    print("in fitter")
+    print(df)
     norm = df.wgt_nominal.sum()
     print(f"Channel: {channel}, Category: {category}, {norm}")
     #norm = 1.
@@ -317,7 +317,7 @@ class Fitter(object):
 
         ds_name = f"data_{label}"
         self.add_data(dataset, norm, ds_name=ds_name, blinded=blinded, binned=binned)
-        #print(dataset["dimuon_mass"])
+        print(dataset["dimuon_mass"])
         ndata = len(dataset["dimuon_mass"].values)
         #print(ndata)
         for model_name in model_names:
@@ -374,17 +374,17 @@ class Fitter(object):
 
             elif ("calib_cat25" in self.label):
                 mh_ggh = rt.RooRealVar(
-                    "mh_ggh", "mh_ggh", 83.2, 99.1
+                    "mh_ggh", "mh_ggh", 82.5, 99.5
                 )
-                self.fitranges["low_Z"] = 83
-                self.fitranges["high_Z"] = 99.3
+                self.fitranges["low_Z"] = 82.5
+                self.fitranges["high_Z"] = 99.5
                 
             elif ("calib_cat12" in self.label):
                 mh_ggh = rt.RooRealVar(
-                    "mh_ggh", "mh_ggh", 84.2, 99
+                    "mh_ggh", "mh_ggh", 84, 98
                 )
-                self.fitranges["low_Z"] = 83.5
-                self.fitranges["high_Z"] = 99
+                self.fitranges["low_Z"] = 84
+                self.fitranges["high_Z"] = 98
                 
             elif ("calib_cat19" in self.label):
                 mh_ggh = rt.RooRealVar(
@@ -855,6 +855,7 @@ class Fitter(object):
             model_key = model_name + tag
             pdfs[model_key] = self.workspace.pdf(model_key)
             print(model_key)
+            rt.EnableImplicitMT()
             #print(pdfs[model_key])
             if doProdPDF == True:
                 pdfs[model_key].fitTo(
@@ -872,6 +873,7 @@ class Fitter(object):
                     rt.RooFit.AsymptoticError(1),
                     #rt.RooFit.Minimizer("Minuit2","minimize"),
                     rt.RooFit.Verbose(rt.kFALSE),
+                    rt.RooFit.BatchMode("cpu"),
                 )
             print(pdfs[model_key])
             

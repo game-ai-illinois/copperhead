@@ -1,0 +1,22 @@
+Combination of datacard_cat3-bkg.txt  datacard_cat3-bkg.txt  datacard_cat3-bkg.txt  datacard_cat3.txt  datacard_cat3-bkg.txt
+imax 1 number of bins
+jmax 2 number of processes minus 1
+kmax * number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes bkg       ch1       fits_ggh_phifixedBDT__cat3/workspace_ggh_phifixedBDT__cat3_background_cats_bernstein3.root w:multipdf_ggh_phifixedBDT__cat3
+shapes data_obs  ch1       fits_ggh_phifixedBDT__cat3/workspace_ggh_phifixedBDT__cat3_background_cats_bernstein3.root w:data_background_cats
+shapes ggH_hmm   ch1       fits_ggh_phifixedBDT__cat3/workspace_ggh_phifixedBDT__cat3_ggh_powheg.root w:dcb_ggh_phifixedBDT__cat3
+shapes vbf_hmm   ch1       fits_ggh_phifixedBDT__cat3/workspace_ggh_phifixedBDT__cat3_vbf_powheg.root w:dcb_ggh_phifixedBDT__cat3
+
+----------------------------------------------------------------------------------------------------------------------------------
+bin          ch1               
+observation  -1                   
+----------------------------------------------------------------------------------------------------------------------------------
+bin                                   ch1             ch1              ch1
+process                               bkg             ggH_hmm          vbf_hmm
+process                               1                   0            0
+rate                                  1                 1               1
+----------------------------------------------------------------------------------------------------------------------------------
+CMS_eff_m               lnN           -             0.994/1.006        0.994/1.006
+------------------------------------------------------------------------------------------------------------------------------------
+pdf_index discrete

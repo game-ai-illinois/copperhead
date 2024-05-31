@@ -1,0 +1,20 @@
+Combination of datacard_cat4-bkg.txt  datacard_cat4-bkg.txt  datacard_cat4-bkg.txt  datacard_cat4.txt  datacard_cat4-bkg.txt
+imax 1 number of bins
+jmax 1 number of processes minus 1
+kmax * number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes bkg       ch1       fits_ggh_BDTperyear__cat4/workspace_ggh_BDTperyear__cat4_background_cats_simple.root w:bwz_redux_ggh_BDTperyear__cat4
+shapes data_obs  ch1       fits_ggh_BDTperyear__cat4/workspace_ggh_BDTperyear__cat4_background_cats_simple.root w:data_background_cats_simple
+shapes ggH_hmm   ch1       fits_ggh_BDTperyear__cat4/workspace_ggh_BDTperyear__cat4_ggh_powheg.root w:dcb_ggh_BDTperyear__cat4
+
+----------------------------------------------------------------------------------------------------------------------------------
+bin          ch1               
+observation  -1                   
+----------------------------------------------------------------------------------------------------------------------------------
+bin                                   ch1             ch1  
+process                               bkg             ggH_hmm  
+process                               1                   0          
+rate                                  1                 1      
+----------------------------------------------------------------------------------------------------------------------------------
+CMS_eff_m               lnN           -             0.994/1.006  
+

@@ -124,7 +124,7 @@ def fitter(args, parameters={}):
         category = 'All'
     
     if mode == "Z":
-        save_path = save_path + f"/calib_fits/BWxDCBexp/"
+        save_path = save_path + f"/calib_fits/BWxDCBexp/2016preVFP/"
     else:
         save_path = save_path + f"/fits_{channel}_{category}/"
     mkdir(save_path)
@@ -142,7 +142,7 @@ def fitter(args, parameters={}):
     #norm = 1.
     
     the_fitter = Fitter(
-        fitranges={"low": 110,"low_signal": 118,"low_Z": 80, "high": 150,"high_signal": 132,"high_Z": 100, "SR_left": 120, "SR_right": 130},
+        fitranges={"low": 110,"low_signal": 116,"low_Z": 80, "high": 150,"high_signal": 133,"high_Z": 100, "SR_left": 120, "SR_right": 130},
         #fitranges_signal={"low": 115, "high": 135},
         fitmodels={
             "bwz": bwZ,
@@ -268,6 +268,7 @@ def fitter(args, parameters={}):
             doProdPDF=False,
             title="Z",
             save=True,
+            binned = True,
             save_path=save_path,
             norm=norm,
         )
@@ -278,7 +279,7 @@ def fitter(args, parameters={}):
 class Fitter(object):
     def __init__(self, **kwargs):
         self.fitranges = kwargs.get(
-            "fitranges", {"low": 110,"low_signal": 120,"low_Z": 80, "high": 150,"high_signal": 130,"high_Z": 100, "SR_left": 120, "SR_right": 130}
+            "fitranges", {"low": 110,"low_signal": 116,"low_Z": 80, "high": 150,"high_signal": 133,"high_Z": 100, "SR_left": 120, "SR_right": 130}
         )
         self.fitmodels = kwargs.get("fitmodels", {})
         self.requires_order = kwargs.get("requires_order", [])
@@ -290,7 +291,7 @@ class Fitter(object):
         self.mode = kwargs.get("mode", "sig")
         self.label = kwargs.get("label", "dummylabel")
         self.category = kwargs.get("category", "All")
-        binned=False
+        binned=True
         self.workspace = self.create_workspace(self.mode,binned, self.category)
 
     def simple_fit(
@@ -361,12 +362,12 @@ class Fitter(object):
                 )
         return chi2
 
-    def create_workspace(self, mode, binned=False, category = "All"):
+    def create_workspace(self, mode, binned=True, category = "All"):
         w = rt.RooWorkspace("w", "w")
         print(self.label)
         if mode == "Z":
             
-            if ("calib_cat3" in self.label) or ("calib_cat7" in self.label) or  ("calib_cat21" in self.label):
+            if ("calib_cat3" in self.label)  or  ("calib_cat21" in self.label):
                 mh_ggh = rt.RooRealVar(
                     "mh_ggh", "mh_ggh", 83, 99
                 )
@@ -396,10 +397,35 @@ class Fitter(object):
                 
             elif ("calib_cat11" in self.label):
                 mh_ggh = rt.RooRealVar(
-                    "mh_ggh", "mh_ggh", 79, 101.8
+                    "mh_ggh", "mh_ggh", 80.5, 99.5
                 )
-                self.fitranges["low_Z"] = 79
-                self.fitranges["high_Z"] = 101.8
+                self.fitranges["low_Z"] = 80.5
+                self.fitranges["high_Z"] = 99.5
+
+            elif self.label=="Zfit_Calib_calib_cat1":
+                mh_ggh = rt.RooRealVar(
+                    "mh_ggh", "mh_ggh", 80, 97.8
+                )
+                self.fitranges["low_Z"] = 80
+                self.fitranges["high_Z"] = 97.8
+            elif self.label=="Zfit_Calib_calib_cat2":
+                mh_ggh = rt.RooRealVar(
+                    "mh_ggh", "mh_ggh", 80, 99.5
+                )
+                self.fitranges["low_Z"] = 80
+                self.fitranges["high_Z"] = 99.5
+            elif self.label=="Zfit_Calib_calib_cat7":
+                mh_ggh = rt.RooRealVar(
+                    "mh_ggh", "mh_ggh", 80, 97.8
+                )
+                self.fitranges["low_Z"] = 80
+                self.fitranges["high_Z"] = 97.8
+            elif self.label=="Zfit_Calib_calib_cat0":
+                mh_ggh = rt.RooRealVar(
+                    "mh_ggh", "mh_ggh", 82, 97.5
+                )
+                self.fitranges["low_Z"] = 82
+                self.fitranges["high_Z"] = 97.5
 
             elif ("calib_cat18" in self.label) or ("calib_cat20" in self.label)or ("calib_cat25" in self.label)or ("calib_cat28" in self.label) or ("calib_cat27" in self.label):
                 mh_ggh = rt.RooRealVar(
@@ -418,16 +444,28 @@ class Fitter(object):
                 self.fitranges["high_Z"] = 102
             elif ("closure_cat0" in self.label):
                 mh_ggh = rt.RooRealVar(
-                    "mh_ggh", "mh_ggh", 84.5, 94.6
+                    "mh_ggh", "mh_ggh", 84, 96.5
                 )
-                self.fitranges["low_Z"] = 84.5
-                self.fitranges["high_Z"] = 94.6
-            elif self.label=="Zfit_no_e_cut_UL_closure_cat1":
+                self.fitranges["low_Z"] = 84
+                self.fitranges["high_Z"] = 96.5 #96.5
+            elif self.label=="Zfit_Calib_closure_cat1":
                 mh_ggh = rt.RooRealVar(
-                    "mh_ggh", "mh_ggh", 83, 98.5
+                    "mh_ggh", "mh_ggh", 83.4, 97.4#
                 )
-                self.fitranges["low_Z"] = 83
-                self.fitranges["high_Z"] = 98.5
+                self.fitranges["low_Z"] = 83.4#
+                self.fitranges["high_Z"] = 97.4#
+            elif self.label=="Zfit_Calib_closure_cat2":
+                mh_ggh = rt.RooRealVar(
+                    "mh_ggh", "mh_ggh", 83.3, 97.7
+                )
+                self.fitranges["low_Z"] = 83.3
+                self.fitranges["high_Z"] = 97.7
+            elif self.label=="Zfit_Calib_closure_cat4":
+                mh_ggh = rt.RooRealVar(
+                    "mh_ggh", "mh_ggh", 82, 100
+                )
+                self.fitranges["low_Z"] = 82
+                self.fitranges["high_Z"] = 100
             elif ("closure_cat9" in self.label):
                 mh_ggh = rt.RooRealVar(
                     "mh_ggh", "mh_ggh", 80, 101
@@ -436,16 +474,16 @@ class Fitter(object):
                 self.fitranges["high_Z"] = 101
             elif ("closure_cat10" in self.label):
                 mh_ggh = rt.RooRealVar(
-                    "mh_ggh", "mh_ggh", 76, 106
+                    "mh_ggh", "mh_ggh", 75, 112
                 )
-                self.fitranges["low_Z"] = 76
-                self.fitranges["high_Z"] = 106
+                self.fitranges["low_Z"] = 75
+                self.fitranges["high_Z"] = 112
             elif ("closure_cat11" in self.label):
                 mh_ggh = rt.RooRealVar(
-                    "mh_ggh", "mh_ggh", 80, 104
+                    "mh_ggh", "mh_ggh", 75, 106
                 )
-                self.fitranges["low_Z"] = 80
-                self.fitranges["high_Z"] = 104
+                self.fitranges["low_Z"] = 75
+                self.fitranges["high_Z"] = 106
             else:
                 mh_ggh = rt.RooRealVar(
                 "mh_ggh", "mh_ggh", self.fitranges["low_Z"], self.fitranges["high_Z"]
@@ -462,6 +500,11 @@ class Fitter(object):
         )
         if mode == "Z":
             mh_ggh.setRange("window", self.fitranges["low_Z"], self.fitranges["high_Z"])
+        elif mode == "sig":
+            mh_ggh = rt.RooRealVar(
+                    "mh_ggh", "mh_ggh", 116, 133
+                )
+            mh_ggh.setRange("window", self.fitranges["low_signal"], self.fitranges["high_signal"])
         else:
             mh_ggh.setRange("window", self.fitranges["low"], self.fitranges["high"])
         mh_ggh.SetTitle("m_{#mu#mu}")

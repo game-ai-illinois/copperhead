@@ -1,0 +1,17 @@
+imax *                                                                                                                        
+jmax *                                                                                                                        
+kmax *                                                                                                                        
+------------                                                                                                                  
+shapes ggH_hmm     cat0_ggh           fits_ggh_BDTperyear_2018_cat0/workspace_ggh_BDTperyear_2018_cat0_ggh_powheg.root     w:dcb_ggh_BDTperyear_2018_cat0                 
+shapes bkg         cat0_ggh           fits_ggh_BDTperyear_2018_cat0/workspace_ggh_BDTperyear_2018_cat0_background.root     w:bwz_redux_ggh_BDTperyear_2018_cat0       
+shapes data_obs    cat0_ggh           fits_ggh_BDTperyear_2018_cat0/workspace_ggh_BDTperyear_2018_cat0_background.root     w:data_background                                             
+------------                                                                                                                  
+bin                cat0_ggh      
+observation        -1                                                                                                         
+------------                                                                                                                  
+bin                cat0_ggh         cat0_ggh               
+process            ggH_hmm            bkg  
+process            -1                     1
+rate               1                      1
+------------ 
+lumi_13TeV_2018  lnN       1.011          -

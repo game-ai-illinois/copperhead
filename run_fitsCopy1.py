@@ -39,8 +39,8 @@ parameters = {
     "years": args.year,
     "label": args.label,
     #"channels": ["ggh_0jets","ggh_1jet","ggh_2orMoreJets","vbf"],
-    #"channels": ["ggh"],
     "channels": ["ggh"],
+    #"channels": ["none"],
         #"category": ["cat1","cat2","cat3","cat4","cat5"],
     #"category": ["All"],
     "mva_channels": ["ggh"],
@@ -52,6 +52,7 @@ parameters = {
              "data_B",
              "data_C",
             "data_D",
+             "data_x"
             ],
     #"regions": ["h-sidebands","h-peak"],
     "regions": ["z-peak"],
@@ -66,12 +67,12 @@ parameters["datasets"] = [
     #"data_A",
     #"data_B",
     #"data_C",
-    "data_D",
+    #"data_D",
     #"data_E",
     #"data_F",
     #"data_G",
     #"data_H",
-    #"data_x",
+    "data_x",
     #"ggh_powheg",
 
 ]
@@ -164,10 +165,13 @@ if __name__ == "__main__":
                                   ((df["mu1_pt"]>62)&(df["mu1_pt"]<=200)&EE),]
                     
                     for i in range(len(selections)):
-                        if (i==20) :
+                        if (i in range(12,13)) :
+                            df_i = pd.read_csv(f"{pat}/{dataset}_Calibration_cat{i}.csv")
                             selection = selections[i]
-                            df_i = df[(selection==True)]
-                            print(df_i)
+                            df_i["wgt_nominal"] = df_i["weights"]
+                            df_i["channel"] = "ggh"
+                            #df_i = df[(selection==True)]
+                            print(df_i["dimuon_mass"])
                             tag = f"{parameters['label']}_calib_cat{i}"
                             run_fits(parameters, df_i,df_i,tag)
                 else:

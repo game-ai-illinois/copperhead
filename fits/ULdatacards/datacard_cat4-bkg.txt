@@ -1,0 +1,19 @@
+imax *                                                                                                                        
+jmax *                                                                                                                        
+kmax *                                                                                                                        
+------------                                                                                                                        
+shapes bkg         cat4_ggh           fits_ggh_BDTperyear__cat4/workspace_ggh_BDTperyear__cat4_background.root     w:ProdPDFchebyshev4_ggh_BDTperyear__cat4
+shapes data_obs    cat4_ggh           fits_ggh_BDTperyear__cat4/workspace_ggh_BDTperyear__cat4_background.root     w:data_background                                             
+------------                                                                                                                  
+bin                cat4_ggh      
+observation        -1                                                                                                         
+------------                                                                                                                  
+bin                cat4_ggh               
+process            bkg  
+process               1
+rate                  1
+
+
+
+
+

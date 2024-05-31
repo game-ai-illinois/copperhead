@@ -1,0 +1,29 @@
+imax 5 number of bins
+jmax 1 number of processes minus 1
+kmax 1 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes bkg       ch1       fits_ggh_BDTperyear__cat0/workspace_ggh_BDTperyear__cat0_background_cats_bernstein2.root w:bwz_redux_ggh_All
+shapes data_obs  ch1       fits_ggh_BDTperyear__cat0/workspace_ggh_BDTperyear__cat0_background_cats_bernstein2.root w:data_background_cats
+shapes ggH_hmm   ch1       fits_ggh_BDTperyear__cat0/workspace_ggh_BDTperyear__cat0_ggh_powheg.root w:dcb_ggh_BDTperyear__cat0
+shapes bkg       ch2       fits_ggh_BDTperyear__cat1/workspace_ggh_BDTperyear__cat1_background_cats_bernstein2.root w:bwz_redux_ggh_All
+shapes data_obs  ch2       fits_ggh_BDTperyear__cat1/workspace_ggh_BDTperyear__cat1_background_cats_bernstein2.root w:data_background_cats
+shapes ggH_hmm   ch2       fits_ggh_BDTperyear__cat1/workspace_ggh_BDTperyear__cat1_ggh_powheg.root w:dcb_ggh_BDTperyear__cat1
+shapes bkg       ch3       fits_ggh_BDTperyear__cat2/workspace_ggh_BDTperyear__cat2_background_cats_bernstein2.root w:bwz_redux_ggh_All
+shapes data_obs  ch3       fits_ggh_BDTperyear__cat2/workspace_ggh_BDTperyear__cat2_background_cats_bernstein2.root w:data_background_cats
+shapes ggH_hmm   ch3       fits_ggh_BDTperyear__cat2/workspace_ggh_BDTperyear__cat2_ggh_powheg.root w:dcb_ggh_BDTperyear__cat2
+shapes bkg       ch4       fits_ggh_BDTperyear__cat3/workspace_ggh_BDTperyear__cat3_background_cats_bernstein2.root w:bwz_redux_ggh_All
+shapes data_obs  ch4       fits_ggh_BDTperyear__cat3/workspace_ggh_BDTperyear__cat3_background_cats_bernstein2.root w:data_background_cats
+shapes ggH_hmm   ch4       fits_ggh_BDTperyear__cat3/workspace_ggh_BDTperyear__cat3_ggh_powheg.root w:dcb_ggh_BDTperyear__cat3
+shapes bkg       ch5       fits_ggh_BDTperyear__cat4/workspace_ggh_BDTperyear__cat4_background_cats_bernstein2.root w:bwz_redux_ggh_All
+shapes data_obs  ch5       fits_ggh_BDTperyear__cat4/workspace_ggh_BDTperyear__cat4_background_cats_bernstein2.root w:data_background_cats
+shapes ggH_hmm   ch5       fits_ggh_BDTperyear__cat4/workspace_ggh_BDTperyear__cat4_ggh_powheg.root w:dcb_ggh_BDTperyear__cat4
+----------------------------------------------------------------------------------------------------------------------------------
+bin          ch1    ch2    ch3    ch4    ch5  
+observation  -1     -1     -1     -1     -1   
+----------------------------------------------------------------------------------------------------------------------------------
+bin                             ch1      ch1      ch2      ch2      ch3      ch3      ch4      ch4      ch5      ch5    
+process                         ggH_hmm  bkg      ggH_hmm  bkg      ggH_hmm  bkg      ggH_hmm  bkg      ggH_hmm  bkg    
+process                         0        1        0        1        0        1        0        1        0        1      
+rate                            1        1        1        1        1        1        1        1        1        1      
+----------------------------------------------------------------------------------------------------------------------------------
+lumi_13TeV_             lnN     1.011    -        1.011    -        1.011    -        1.011    -        1.011    -      

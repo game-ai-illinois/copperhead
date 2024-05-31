@@ -47,16 +47,16 @@ parameters = {
     "cats_by_score": True,
     #"cats_by_score": False,
     
-    "signals": ["ggh_powheg"],
+    "signals": ["ggh_powheg", "vbf_powheg"],
     "data": ["data_A",
              "data_B",
              "data_C",
             "data_D",
              "data_x"
             ],
-    "regions": ["h-sidebands","h-peak"],
+    "regions": ["none"],
     #"regions": ["z-peak"],
-    "is_Z": False,
+    "is_Z": True,
     
     "syst_variations": ["nominal"],
 
@@ -74,6 +74,7 @@ parameters["datasets"] = [
     #"data_H",
     "data_x",
     #"ggh_powheg",
+    #"vbf_powheg",
 
 ]
 
@@ -109,21 +110,21 @@ if __name__ == "__main__":
 
             # read stage2 outputs
             for pat in path:
-                do_calib_fits=False
+                do_calib_fits=True
                 do_closure_fits=False
                 if not do_closure_fits:
                     df = pd.read_csv(f"{pat}/{dataset}.csv")
                     if parameters["is_Z"]==False:
                         df_all = pd.read_csv(f"{pat}/{dataset}_nocats.csv")
                 if args.year[0] == "combined":
-                    columns_to_check = ["score_ggHnew_2016postVFP_nominal", "score_ggHnew_2016preVFP_nominal", "score_ggHnew_2017_nominal", "score_ggHnew_2018_nominal"]
+                    columns_to_check = ["score_phifixedBDT_2016postVFP_nominal", "score_phifixedBDT_2016preVFP_nominal", "score_phifixedBDT_2017_nominal", "score_phifixedBDT_2018_nominal"]
                 #else:
                     #columns_to_check = [f"score_BDTperyear_{args.year[0]}_nominal"]
                     #columns_to_check = [f"score_BDTperyear_{args.year[0]}_nominal"]
 
                 # Drop rows where all specified columns have NaN values
                 #df_all_filtered = df_all.dropna(subset=columns_to_check, how='all')
-                print(df.keys)
+  
                 
 
                 if do_calib_fits:
@@ -170,16 +171,20 @@ if __name__ == "__main__":
                     
                     for i in range(len(selections)):
                         if i in range(0,12):
+                            df_i = pd.read_csv(f"{pat}/{dataset}_Calibration_cat{i}.csv")
                             selection = selections[i]
-                            df_i = df[(selection==True)]
+                            df_i["wgt_nominal"] = df_i["weights"]
+                            df_i["channel"] = "ggh"
+                            selection = selections[i]
+                            #df_i = df[(selection==True)]
                             print(df_i)
                             tag = f"{parameters['label']}_calib_cat{i}"
                             run_fits(parameters, df_i,df_i,tag)
 
                 elif do_closure_fits:
-                    for i in [1]:
+                    for i in range(0,3):
                         df = pd.read_csv(f"{pat}/{dataset}_Closure_cat{i}.csv")
-                        
+                        df["wgt_nominal"] = df["weights"]
                         df["category"] = "All"
                         print(df)
                         tag = f"{parameters['label']}_closure_cat{i}"

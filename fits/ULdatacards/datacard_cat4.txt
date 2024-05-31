@@ -1,0 +1,38 @@
+imax *                                                                                                                        
+jmax *                                                                                                                        
+kmax *                                                                                                                        
+------------                                                                                                                  
+shapes ggH_hmm     cat4_ggh           fits_ggh_BDTperyear_2018_cat4/workspace_ggh_BDTperyear_2018_cat4_ggh_powheg.root     w:dcb_ggh_BDTperyear_2018_cat4                 
+shapes bkg         cat4_ggh           fits_ggh_BDTperyear_2018_cat4/workspace_ggh_BDTperyear_2018_cat4_background.root     w:ProdPDFchebyshev4_ggh_BDTperyear__cat4       
+shapes data_obs    cat4_ggh           fits_ggh_BDTperyear_2018_cat4/workspace_ggh_BDTperyear_2018_cat4_background.root     w:data_background                                             
+------------                                                                                                                  
+bin                cat4_ggh      
+observation        -1                                                                                                         
+------------                                                                                                                  
+bin                cat4_ggh         cat4_ggh               
+process            ggH_hmm            bkg  
+process            -1                     1
+rate               1                      1
+------------ 
+lumi_13TeV_2016  lnN       1.007      -
+lumi_13TeV_2017  lnN       1.008       -   
+lumi_13TeV_2018  lnN       1.011        -   
+CMS_ps              lnN    1.044/0.975  -
+CMS_ue              lnN    0.998/1.002  -
+-------------
+CMS_eff_m           lnN    0.994/1.006 -
+CMS_trig_m          lnN    0.998/1.002  -
+CMS_scale_m         lnN    1.002/0.998  - 
+CMS_pileup_2016     lnN    1.000/1.000  -
+CMS_pileup_2017     lnN    1.000/1.000  -
+CMS_pileup_2018     lnN    1.001/0.999  -  
+CMS_prefiring_2016  lnN    1.001/0.999  -  
+CMS_prefiring_2017  lnN    1.001/0.999  -  
+------------
+
+CMS_hmm_peak_cat4_ggh   param  0  0.001
+CMS_hmm_sigma_cat4_ggh  param  0  0.1
+
+
+
+

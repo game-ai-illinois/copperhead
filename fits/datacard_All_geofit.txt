@@ -1,0 +1,17 @@
+imax *                                                                                                                        
+jmax *                                                                                                                        
+kmax *                                                                                                                        
+------------                                                                                                                  
+shapes ggH_hmm     All_ggh           fits_ggh_All_geofit/workspace_ggh_All_ggh_powheg.root     w:dcb_ggh_All                 
+shapes bkg         All_ggh           fits_ggh_All_geofit/workspace_ggh_All_background_all.root     w:SumTwoExpPdf_ggh_All      
+shapes data_obs    All_ggh           fits_ggh_All_geofit/workspace_ggh_All_background_all.root     w:data_background_all                                             
+------------                                                                                                                  
+bin                All_ggh      
+observation        -1                                                                                                         
+------------                                                                                                                  
+bin                All_ggh         All_ggh               
+process            ggH_hmm            bkg  
+process            0                     1
+rate               1                      1
+------------ 
+lumi_13TeV_  lnN       1.011          -
