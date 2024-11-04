@@ -4,12 +4,12 @@ import argparse
 import pandas as pd
 from stage3.fitter import run_fits
 import pdb
-
+import copy
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "-y", "--year", nargs="+", help="Years to process", default=["*"]
+    "-y", "--year", nargs="+", help="Years to process", default=["combined"]
 )
 parser.add_argument(
     "-sl",
@@ -49,10 +49,11 @@ parameters = {
     #"cats_by_score": False,
     
     "signals": ["ggh_powheg", "vbf_powheg"],
-    "data": ["data_A",
-             "data_B",
-             "data_C",
-            "data_D",
+    "data": [
+        # "data_A",
+        #      "data_B",
+        #      "data_C",
+        #     "data_D",
              "data_x"
             ],
     "regions": ["none"],
@@ -199,5 +200,7 @@ if __name__ == "__main__":
                 else:
                     tag = ""
                     print("Running fits")
-                    df_all = df
+                    # df.to_csv("test.csv")
+                    df_all = copy.deepcopy(df)
+                    df_all["category"] = "All"
                     run_fits(parameters, df,df_all,tag)

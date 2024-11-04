@@ -38,7 +38,7 @@ def run_fits(parameters, df,df_all,tag):
     elif len(backgrounds) > 0:
         fit_setup_multi = {
            "label": "background_all",
-           "mode": "bkg_simple",#bkg_all"
+           "mode": "bkg_all",#bkg_all"
             "year": year,
            "df": df_all[df_all.dataset.isin(backgrounds)],
            "blinded": False,
@@ -90,7 +90,7 @@ def run_fits(parameters, df,df_all,tag):
         "channel": parameters["mva_channels"],
         "category": df["category"].dropna().unique(),
     }
-    print(f'fitter category: df["category"]')
+    print(f'fitter category: {df["category"]}')
     fit_ret = non_parallelize(fitter, argset, parameters)
     df_fits = pd.DataFrame(columns=["label", "channel", "category", "chi2"])
     for fr in fit_ret:
