@@ -12,7 +12,7 @@ __all__ = ["dask"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "-y", "--year", nargs="+", help="Years to process", default=["2018"]
+    "-y", "--year", nargs="+", help="Years to process", default=["2018", "2017","2016preVFP","2016postVFP"]
 )
 parser.add_argument(
     "-sl",
@@ -65,7 +65,7 @@ parameters = {
     # < general settings >
     "slurm_cluster_ip": slurm_cluster_ip,
     "years": args.year,
-    "global_path": "/depot/cms/hmm/vscheure/",
+    "global_path": "/depot/cms/users/yun79/hmm/copperheadV1clean/",
     #"global_path": "/work/users/vscheure",
     "label": args.label,
     #"channels": ["vbf"],
@@ -93,8 +93,8 @@ parameters = {
     #"plot_vars":  ["dimuon_mass"],
     #"plot_vars": ["njets"],
     "variables_lookup": variables_lookup,
-    "save_plots": True,
-    "plot_ratio": True,
+    "save_plots": False,# True
+    "plot_ratio": False,# True
     "logscale" : False,
     "plots_path": f"{args.plotsdir}/",
    "dnn_models": {
@@ -123,7 +123,7 @@ parameters = {
         # "vbf": ["pytorch_may24_pisa"],
     },
     "bdt_models": {
-    #"ggh": [f"{BDTname}_{args.year[0]}"],
+    "ggh": [f"{BDTname}_{args.year[0]}"],
     },
     #
     # < templates and datacards >
@@ -233,13 +233,13 @@ if __name__ == "__main__":
 
     # make plots
     #print(parameters)
-    yields = plotter(client, parameters)
+    # yields = plotter(client, parameters)
     #print(yields)
 
     # save templates to ROOT files
-    #yield_df = to_templates(client, parameters)
-    #print(yield_df)
+    yield_df = to_templates(client, parameters)
+    print(yield_df)
 
     # make datacards
-    #build_datacards("score_ValerieDNNtest3", yield_df, parameters)
+    build_datacards("score_ValerieDNNtest3", yield_df, parameters)
     

@@ -55,7 +55,7 @@ else:
 parameters = {
     # < general settings >
     "slurm_cluster_ip": slurm_cluster_ip,
-    "global_path": "/depot/cms/hmm/vscheure",
+    "global_path": "/depot/cms/users/yun79/hmm/copperheadV1clean",
     #"global_path": "/work/users/vscheure",
     "years": args.year,
     "label": args.label,
@@ -134,21 +134,22 @@ parameters = {
     # "mva_categorizer": "3layers_64_32_16_all_feat",
     # "vbf_mva_cutoff": 0.5,
     "bdt_models": {
-         #"ggh": ["ANBDT2"],
+         # "ggh": ["ANBDT2"],
+        "ggh": ["phifixedBDT"],
     },
     "mva_bins_original": mva_bins,
 }
 
 parameters["datasets"] = [
-    #"data_A",
-    #"data_B",
-    #"data_C",
-    #"data_D",
+    # "data_A",
+    # "data_B",
+    # "data_C",
+    # "data_D",
     #"data_E",
     #"data_F",
     #"data_G",
     #"data_H",
-    #"data_x",
+    "data_x",
     #"dy_M-50",
     #"dy_M-50_nocut",
     #"dy_M-100To200",
@@ -174,7 +175,7 @@ parameters["datasets"] = [
     #wzz",
     #"zzz",
     "ggh_powheg",
-    #"vbf_powheg",
+    "vbf_powheg",
 ]
 # using one small dataset for debugging
 #parameters["datasets"] = ["ggh_localTest"]
@@ -271,10 +272,12 @@ if __name__ == "__main__":
             print("processing done starting svaing csvs")
             do_calib = False
             do_closure = False
-            save_fit_data = False
+            save_fit_data = True
             if save_fit_data:
-
-                columns_to_store = ["dataset","region","channel_nominal","category","dimuon_mass", f"score_ANBDT_{args.year[0]}_nominal", "wgt_nominal"]
+                print(f"df.columns: {df.columns}")
+                model_name = parameters["bdt_models"]["ggh"][0]
+                # columns_to_store = ["dataset","region","channel_nominal","category","dimuon_mass", f"score_ANBDT_{args.year[0]}_nominal", "wgt_nominal"]
+                columns_to_store = ["dataset","region","channel_nominal","category","dimuon_mass", f"score_{model_name}_{args.year[0]}_nominal", "wgt_nominal"]
                 #columns_to_store = ["dataset","region","channel_nominal"]
                 df_store = df[columns_to_store]
         

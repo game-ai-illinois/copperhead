@@ -9,7 +9,7 @@ import pdb
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "-y", "--year", nargs="+", help="Years to process", default=["2018"]
+    "-y", "--year", nargs="+", help="Years to process", default=["*"]
 )
 parser.add_argument(
     "-sl",
@@ -35,14 +35,15 @@ args = parser.parse_args()
 # global parameters
 parameters = {
     # < general settings >
-    "global_path": "/depot/cms/hmm/vscheure",
+    "global_path": "/depot/cms/users/yun79/hmm/copperheadV1clean",
     "years": args.year,
     "label": args.label,
     #"channels": ["ggh_0jets","ggh_1jet","ggh_2orMoreJets","vbf"],
     #"channels": ["ggh"],
     "channels": ["ggh"],
-        #"category": ["cat1","cat2","cat3","cat4","cat5"],
-    #"category": ["All"],
+    # "category": ["cat1","cat2","cat3","cat4","cat5"],
+    # "category": ["cat1"],
+    "category": ["All"],
     "mva_channels": ["ggh"],
     "cats_by_score": True,
     #"cats_by_score": False,
@@ -56,7 +57,7 @@ parameters = {
             ],
     "regions": ["none"],
     #"regions": ["z-peak"],
-    "is_Z": True,
+    "is_Z": False,
     
     "syst_variations": ["nominal"],
 
@@ -73,8 +74,8 @@ parameters["datasets"] = [
     #"data_G",
     #"data_H",
     "data_x",
-    #"ggh_powheg",
-    #"vbf_powheg",
+    "ggh_powheg",
+    # "vbf_powheg",
 
 ]
 
@@ -98,7 +99,7 @@ if __name__ == "__main__":
                #f"{parameters['label']}/stage1_output/{year}/"
                 #f"{dataset}/")
             all_paths[year][dataset] = paths
-            print(all_paths)
+            print(f"all_paths: {all_paths}")
     # run postprocessing
     for year in parameters["years"]:
         print(f"Processing {year}")
@@ -110,13 +111,18 @@ if __name__ == "__main__":
 
             # read stage2 outputs
             for pat in path:
-                do_calib_fits=True
+                do_calib_fits=False
                 do_closure_fits=False
                 if not do_closure_fits:
-                    df = pd.read_csv(f"{pat}/{dataset}.csv")
-                    if parameters["is_Z"]==False:
-                        df_all = pd.read_csv(f"{pat}/{dataset}_nocats.csv")
-                if args.year[0] == "combined":
+                    csv_path = f"{pat}/{dataset}.csv"
+                    print(f"csv_path: {csv_path}")
+                    df = pd.read_csv(csv_path)
+                    # if parameters["is_Z"]==False:
+                    #     csv_path = f"{pat}/{dataset}_nocats.csv"
+                    #     print(f"csv_path: {csv_path}")
+                    #     df_all = pd.read_csv(csv_path)
+                # if args.year[0] == "combined":
+                if args.year[0] == "*":
                     columns_to_check = ["score_phifixedBDT_2016postVFP_nominal", "score_phifixedBDT_2016preVFP_nominal", "score_phifixedBDT_2017_nominal", "score_phifixedBDT_2018_nominal"]
                 #else:
                     #columns_to_check = [f"score_BDTperyear_{args.year[0]}_nominal"]
@@ -193,4 +199,5 @@ if __name__ == "__main__":
                 else:
                     tag = ""
                     print("Running fits")
+                    df_all = df
                     run_fits(parameters, df,df_all,tag)

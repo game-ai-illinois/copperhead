@@ -53,7 +53,7 @@ parser.add_argument(
     "-d",
     "--datasets",
     dest="datasets",
-    default="Run3",
+    default="UL",
     action="store",
     help="Wich datasets file to use (either UL or purdue)",
 )
@@ -117,7 +117,7 @@ parameters = {
     "label": args.label,
     "local_cluster": local_cluster,
     "slurm_cluster_ip": slurm_cluster_ip,
-    "global_path": "/depot/cms/hmm/vscheure/",
+    "global_path":"/depot/cms/users/yun79/hmm/copperheadV1clean/",
     #"global_path": "/work/users/vscheure",
     #
     # < input data settings >
@@ -204,13 +204,15 @@ if __name__ == "__main__":
         )
     else:
         # connect to existing Slurm cluster
+        # parameters["client"] = Client(parameters["slurm_cluster_ip"])
         from dask_gateway import Gateway
-        gateway = Gateway()
-        # replace with actual cluster name:
-        cluster_name = args.slurm_port
-        client = gateway.connect(cluster_name).get_client()
+        gateway = Gateway(
+            "http://dask-gateway-k8s.geddes.rcac.purdue.edu/",
+            proxy_address="traefik-dask-gateway-k8s.cms.geddes.rcac.purdue.edu:8786",
+        )
+        cluster_info = gateway.list_clusters()[0]# get the first cluster by default. There only should be one anyways
+        client = gateway.connect(cluster_info.name).get_client()
         parameters["client"] = client
-        #print(cluster)
     print("Client created")
 
     # datasets to process (split into groups for convenience)
@@ -220,18 +222,18 @@ if __name__ == "__main__":
         # ],
         "data": [
             #'test_file_data_A',
-            #"data_A",
-            #"data_B",
-            #"data_C",
-            #"data_D",
-            #"data_E",
+            # "data_A",
+            # "data_B",
+            # "data_C",
+            # "data_D",
+            # "data_E",
             "data_F",
             "data_G",
             "data_H",
        ],
         "signal": [
-            #"ggh_powheg",
-            #"vbf_powheg",
+            "ggh_powheg",
+            # # "vbf_powheg",
             #"ggh_amcPS",
             #"vbf_powhegPS",
             #"vbf_powheg_herwig",
@@ -243,7 +245,7 @@ if __name__ == "__main__":
         ],
         "main_mc": [
             #"dy_M-50",
-            "dy_M-100To200",
+            # "dy_M-100To200",
             #"dy_M-50_nocut",
             #"dy_1j",
             #"dy_2j",

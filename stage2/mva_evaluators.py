@@ -341,6 +341,7 @@ def evaluate_pytorch_dnn_pisa(
 def evaluate_bdt(df, variation, model, parameters, score_name):
    # training_features = ['dimuon_cos_theta_cs', 'dimuon_dEta', 'dimuon_dPhi', 'dimuon_dR', 'dimuon_eta', 'dimuon_phi', 'dimuon_phi_cs', 'dimuon_pt', 'dimuon_pt_log', 'jet1_eta_nominal', 'jet1_phi_nominal', 'jet1_pt_nominal', 'jet1_qgl_nominal', 'jet2_eta_nominal', 'jet2_phi_nominal', 'jet2_pt_nominal', 'jet2_qgl_nominal', 'jj_dEta_nominal', 'jj_dPhi_nominal', 'jj_eta_nominal', 'jj_mass_nominal', 'jj_mass_log_nominal', 'jj_phi_nominal', 'jj_pt_nominal', 'll_zstar_log_nominal', 'mmj1_dEta_nominal', 'mmj1_dPhi_nominal', 'mmj2_dEta_nominal', 'mmj2_dPhi_nominal', 'mmj_min_dEta_nominal', 'mmj_min_dPhi_nominal', 'mmjj_eta_nominal', 'mmjj_mass_nominal', 'mmjj_phi_nominal', 'mmjj_pt_nominal', 'mu1_eta', 'mu1_iso', 'mu1_phi', 'mu1_pt_over_mass', 'mu2_eta', 'mu2_iso', 'mu2_phi', 'mu2_pt_over_mass', 'zeppenfeld_nominal']
     training_features = ['dimuon_cos_theta_cs_pisa', 'dimuon_eta', 'dimuon_phi_cs_pisa', 'dimuon_pt', 'jet1_eta_nominal', 'jet1_pt_nominal', 'jet2_pt_nominal', 'jj_dEta_nominal', 'jj_dPhi_nominal', 'jj_mass_nominal', 'mmj1_dEta_nominal', 'mmj1_dPhi_nominal',  'mmj_min_dEta_nominal', 'mmj_min_dPhi_nominal', 'mu1_eta', 'mu1_pt_over_mass', 'mu2_eta', 'mu2_pt_over_mass', 'zeppenfeld_nominal', 'njets_nominal'] # AN 19-124
+    # training_features = ['dimuon_cos_theta_cs_pisa', 'dimuon_eta', 'dimuon_phi_cs_pisa', 'dimuon_pt', 'jet1_eta_nominal', 'jet1_pt_nominal', 'jet2_eta_nominal', 'jet2_pt_nominal', 'jj_dEta_nominal', 'jj_dPhi_nominal', 'jj_mass_nominal', 'mmj1_dEta_nominal', 'mmj1_dPhi_nominal',  'mmj_min_dEta_nominal', 'mmj_min_dPhi_nominal', 'mu1_eta', 'mu1_pt_over_mass', 'mu2_eta', 'mu2_pt_over_mass', 'zeppenfeld_nominal', 'njets_nominal'] 
     
     # if parameters["do_massscan"]:
     #     mass_shift = parameters["mass"] - 125.0
@@ -350,7 +351,7 @@ def evaluate_bdt(df, variation, model, parameters, score_name):
     #df['njets_nominal']= 
     df['njets_nominal'].fillna(0)
 
-    #df[df['njets_nominal']<2]['jj_dPhi_nominal'] = -1
+    df[df['njets_nominal']<2]['jj_dPhi_nominal'] = -1
     
     df.fillna(-99.0)
     df.loc[:,'mmj_min_dEta_nominal'] = df["mmj2_dEta_nominal"]

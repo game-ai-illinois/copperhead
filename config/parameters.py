@@ -33,11 +33,11 @@ parameters.update(
 )
 
 parameters["lumimask"] = {
-    "2016preVFP": "data/lumimasks/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt",
-    "2016postVFP": "data/lumimasks/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt",
-    "2017": "data/lumimasks/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt",
-    "2018": "data/lumimasks/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt",
-    "2022EE": "data/lumimasks/Cert_Collisions2022_355100_362760_Golden.txt",
+    "2016preVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/lumimasks/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt",
+    "2016postVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/lumimasks/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt",
+    "2017": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/lumimasks/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt",
+    "2018": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/lumimasks/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt",
+    "2022EE": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/lumimasks/Cert_Collisions2022_355100_362760_Golden.txt",
 }
 
 parameters["hlt"] = {
@@ -49,14 +49,14 @@ parameters["hlt"] = {
 }
 
 parameters["roccor_file"] = {
-    "2016preVFP": "data/roch_corr/RoccoR2016aUL.txt",
-    "2016postVFP": "data/roch_corr/RoccoR2016bUL.txt",
-    "2017": "data/roch_corr/RoccoR2017UL.txt",
-    "2018": "data/roch_corr/RoccoR2018UL.txt",
-    "2022EE": "data/roch_corr/RoccoR2018UL.txt",
+    "2016preVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/roch_corr/RoccoR2016aUL.txt",
+    "2016postVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/roch_corr/RoccoR2016bUL.txt",
+    "2017": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/roch_corr/RoccoR2017UL.txt",
+    "2018": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/roch_corr/RoccoR2018UL.txt",
+    "2022EE": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/roch_corr/RoccoR2018UL.txt",
 }
 
-parameters["nnlops_file"] = for_all_years("data/NNLOPS_reweight.root")
+parameters["nnlops_file"] = for_all_years("/work/users/yun79/dmitry/recreate_valerie/copperhead/data/NNLOPS_reweight.root")
 
 #parameters["btag_sf_csv"] = { #preUL
 #    "2016preVFP": "data/btag/DeepCSV_2016LegacySF_V1.csv",
@@ -75,42 +75,42 @@ parameters["btag_sf_json"] = {
 }
 parameters["btag_sf_csv"] = {
 
-    "2016preVFP": "data/btag/DeepCSV_2016LegacySF_V1.csv",
-    "2016postVFP": "data/btag/DeepCSV_2016LegacySF_V1.csv",
-    "2017": "data/btag/DeepCSV_106XUL17SF.csv",
-    "2018": "data/btag/DeepCSV_106XUL18SF.csv",
-    "2022EE": "data/btag/DeepCSV_106XUL18SF.csv",
+    "2016preVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/btag/DeepCSV_2016LegacySF_V1.csv",
+    "2016postVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/btag/DeepCSV_2016LegacySF_V1.csv",
+    "2017": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/btag/DeepCSV_106XUL17SF.csv",
+    "2018": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/btag/DeepCSV_106XUL18SF.csv",
+    "2022EE": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/btag/DeepCSV_106XUL18SF.csv",
 }
 
 parameters["pu_file_data"] = {
-    "2016preVFP": "data/pileup/puData2016_UL_withVar.root",
-    "2016postVFP": "data/pileup/puData2016_UL_withVar.root",
-    "2017": "data/pileup/puData2017_UL_withVar.root",
-    "2018": "data/pileup/puData2018_UL_withVar.root",
-    "2022EE": "data/pileup/puData2018_UL_withVar.root",
+    "2016preVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/pileup/puData2016_UL_withVar.root",
+    "2016postVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/pileup/puData2016_UL_withVar.root",
+    "2017": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/pileup/puData2017_UL_withVar.root",
+    "2018": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/pileup/puData2018_UL_withVar.root",
+    "2022EE": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/pileup/puData2018_UL_withVar.root",
 }
 
 parameters["pu_file_mc"] = {
-    "2016preVFP": "data/pileup/pileup_profile_Summer16.root",
-    "2016postVFP": "data/pileup/pileup_profile_Summer16.root",
-    "2017": "data/pileup/mcPileup2017.root",
-    "2018": "data/pileup/mcPileup2018.root",
-    "2022EE": "data/pileup/mcPileup2018.root",
+    "2016preVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/pileup/pileup_profile_Summer16.root",
+    "2016postVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/pileup/pileup_profile_Summer16.root",
+    "2017": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/pileup/mcPileup2017.root",
+    "2018": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/pileup/mcPileup2018.root",
+    "2022EE": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/pileup/mcPileup2018.root",
 }
 
 parameters["muSFFileList"] = {
     "2016preVFP": [
         {
             "id": (
-                "data/muon_sf/year2016/MuonSF_Run2016_UL_HIPM_ID.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2016/MuonSF_Run2016_UL_HIPM_ID.root",
                 "NUM_MediumID_DEN_TrackerMuons_abseta_pt",
             ),
             "iso": (
-                "data/muon_sf/year2016/MuonSF_Run2016_UL_HIPM_ISO.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2016/MuonSF_Run2016_UL_HIPM_ISO.root",
                 "NUM_TightRelIso_DEN_MediumID_abseta_pt",
             ),
             "trig": (
-                "data/muon_sf/mu2016/EfficienciesStudies_2016_trigger_EfficienciesAndSF_RunBtoF.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/mu2016/EfficienciesStudies_2016_trigger_EfficienciesAndSF_RunBtoF.root",
                 "IsoMu24_OR_IsoTkMu24_PtEtaBins/efficienciesDATA/abseta_pt_DATA",
                 "IsoMu24_OR_IsoTkMu24_PtEtaBins/efficienciesMC/abseta_pt_MC",
             ),
@@ -120,15 +120,15 @@ parameters["muSFFileList"] = {
        "2016postVFP": [
         {
             "id": (
-                "data/muon_sf/year2016/MuonSF_Run2016_UL_ID.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2016/MuonSF_Run2016_UL_ID.root",
                 "NUM_MediumID_DEN_TrackerMuons_abseta_pt",
             ),
             "iso": (
-                "data/muon_sf/year2016/MuonSF_Run2016_UL_ISO.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2016/MuonSF_Run2016_UL_ISO.root",
                 "NUM_TightRelIso_DEN_MediumID_abseta_pt",
             ),
             "trig": (
-                "data/muon_sf/mu2016/EfficienciesStudies_2016_trigger_EfficienciesAndSF_RunGtoH.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/mu2016/EfficienciesStudies_2016_trigger_EfficienciesAndSF_RunGtoH.root",
                 "IsoMu24_OR_IsoTkMu24_PtEtaBins/efficienciesDATA/abseta_pt_DATA",
                 "IsoMu24_OR_IsoTkMu24_PtEtaBins/efficienciesMC/abseta_pt_MC",
             ),
@@ -138,15 +138,15 @@ parameters["muSFFileList"] = {
     "2017": [
         {
             "id": (
-                "data/muon_sf/year2017/MuonSF_Run2017_UL_ID.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2017/MuonSF_Run2017_UL_ID.root",
                 "NUM_MediumID_DEN_TrackerMuons_abseta_pt",
             ),
             "iso": (
-                "data/muon_sf/year2017/MuonSF_Run2017_UL_ISO.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2017/MuonSF_Run2017_UL_ISO.root",
                 "NUM_TightRelIso_DEN_MediumID_abseta_pt",
             ),
             "trig": (
-                "data/muon_sf/mu2017/EfficienciesAndSF_RunBtoF_Nov17Nov2017.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/mu2017/EfficienciesAndSF_RunBtoF_Nov17Nov2017.root",
                 "IsoMu27_PtEtaBins/efficienciesDATA/abseta_pt_DATA",
                 "IsoMu27_PtEtaBins/efficienciesMC/abseta_pt_MC",
             ),
@@ -156,15 +156,15 @@ parameters["muSFFileList"] = {
     "2018": [
         {
             "id": (
-                "data/muon_sf/year2018/MuonSF_Run2018_UL_ID.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2018/MuonSF_Run2018_UL_ID.root",
                 "NUM_MediumID_DEN_TrackerMuons_abseta_pt",
             ),
             "iso": (
-                "data/muon_sf/year2018/MuonSF_Run2018_UL_ISO.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2018/MuonSF_Run2018_UL_ISO.root",
                 "NUM_TightRelIso_DEN_MediumID_abseta_pt",
             ),
             "trig": (
-                "data/muon_sf/mu2018/EfficienciesStudies_2018_trigger_EfficienciesAndSF_2018Data_BeforeMuonHLTUpdate.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/mu2018/EfficienciesStudies_2018_trigger_EfficienciesAndSF_2018Data_BeforeMuonHLTUpdate.root",
                 "IsoMu24_PtEtaBins/efficienciesDATA/abseta_pt_DATA",
                 "IsoMu24_PtEtaBins/efficienciesMC/abseta_pt_MC",
             ),
@@ -172,15 +172,15 @@ parameters["muSFFileList"] = {
         },
         {
             "id": (
-                "data/muon_sf/year2018/MuonSF_Run2018_UL_ID.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2018/MuonSF_Run2018_UL_ID.root",
                 "NUM_MediumID_DEN_TrackerMuons_abseta_pt",
             ),
             "iso": (
-                "data/muon_sf/year2018/MuonSF_Run2018_UL_ISO.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2018/MuonSF_Run2018_UL_ISO.root",
                 "NUM_TightRelIso_DEN_MediumID_abseta_pt",
             ),
             "trig": (
-                "data/muon_sf/mu2018/EfficienciesStudies_2018_trigger_EfficienciesAndSF_2018Data_AfterMuonHLTUpdate.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/mu2018/EfficienciesStudies_2018_trigger_EfficienciesAndSF_2018Data_AfterMuonHLTUpdate.root",
                 "IsoMu24_PtEtaBins/efficienciesDATA/abseta_pt_DATA",
                 "IsoMu24_PtEtaBins/efficienciesMC/abseta_pt_MC",
             ),
@@ -190,15 +190,15 @@ parameters["muSFFileList"] = {
         "2022EE": [
         {
             "id": (
-                "data/muon_sf/year2017/MuonSF_Run2017_UL_ID.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2017/MuonSF_Run2017_UL_ID.root",
                 "NUM_MediumID_DEN_TrackerMuons_abseta_pt",
             ),
             "iso": (
-                "data/muon_sf/year2017/MuonSF_Run2017_UL_ISO.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/year2017/MuonSF_Run2017_UL_ISO.root",
                 "NUM_TightRelIso_DEN_MediumID_abseta_pt",
             ),
             "trig": (
-                "data/muon_sf/mu2017/EfficienciesAndSF_RunBtoF_Nov17Nov2017.root",
+                "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/muon_sf/mu2017/EfficienciesAndSF_RunBtoF_Nov17Nov2017.root",
                 "IsoMu27_PtEtaBins/efficienciesDATA/abseta_pt_DATA",
                 "IsoMu27_PtEtaBins/efficienciesMC/abseta_pt_MC",
             ),
@@ -207,13 +207,13 @@ parameters["muSFFileList"] = {
         ],
 }
 
-parameters["zpt_weights_file"] = {"2016preVFP": "data/reweight_zpt_2017_nJetBinned_new.histo.root",
-                                  "2016postVFP": "data/reweight_zpt_2017_nJetBinned_new.histo.root",
-                                  "2017": "data/reweight_zpt_2017_nJetBinned_new.histo.root",
-                                  "2018": "data/reweight_zpt_2018_nJetBinned_new.histo.root",
+parameters["zpt_weights_file"] = {"2016preVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/reweight_zpt_2017_nJetBinned_new.histo.root",
+                                  "2016postVFP": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/reweight_zpt_2017_nJetBinned_new.histo.root",
+                                  "2017": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/reweight_zpt_2017_nJetBinned_new.histo.root",
+                                  "2018": "/work/users/yun79/dmitry/recreate_valerie/copperhead/data/reweight_zpt_2018_nJetBinned_new.histo.root",
                                  }
-parameters["puid_sf_file"] = for_all_years("data/PUID_106XTraining_ULRun2_EffSFandUncties_v1.root")
-parameters["res_calib_path"] = for_all_years("data/res_calib/")
+parameters["puid_sf_file"] = for_all_years("/work/users/yun79/dmitry/recreate_valerie/copperhead/data/PUID_106XTraining_ULRun2_EffSFandUncties_v1.root")
+parameters["res_calib_path"] = for_all_years("/work/users/yun79/dmitry/recreate_valerie/copperhead/data/res_calib/")
 
 parameters["sths_names"] = for_all_years(
     [

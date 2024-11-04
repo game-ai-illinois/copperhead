@@ -4,14 +4,18 @@ from python.workflow_noDask import non_parallelize
 from stage3.fit_plots import plot
 from stage3.fit_models import chebyshev, doubleCB, doubleCB_forZ, SumTwoExpPdf, bwZ, bwGamma, bwZredux, bernstein,BWxDCB,VoigtianxErf,Erf, BW, RooExp
 import pdb
+import os
 rt.RooMsgService.instance().setGlobalKillBelow(rt.RooFit.ERROR)
 #rt.gSystem.Load ("../CMSSW_12_4_15/lib/el8_amd64_gcc10/libHiggsAnalysisCombinedLimit.so")
 simple = False
 def mkdir(path):
     try:
-        os.mkdir(path)
-    except Exception:
-        pass
+        if not os.path.exists(path):
+            os.mkdir(path)
+    except Exception as e:
+        print(f"mkdir error: {e}")
+        raise ValueError
+        # pass
 def run_fits(parameters, df,df_all,tag):
     signal_ds = parameters.get("signals", [])
     data_ds = parameters.get("data", [])
@@ -27,14 +31,14 @@ def run_fits(parameters, df,df_all,tag):
         argset = {
             "fit_setup": fit_setups,
             "channel": parameters["mva_channels"],
-            "category": ["All"]
+            "category": parameters["category"]
         }
         fit_ret = non_parallelize(fitter, argset, parameters)
         return fit_ret
     elif len(backgrounds) > 0:
         fit_setup_multi = {
            "label": "background_all",
-           "mode": "bkg_all",
+           "mode": "bkg_simple",#bkg_all"
             "year": year,
            "df": df_all[df_all.dataset.isin(backgrounds)],
            "blinded": False,
@@ -46,7 +50,7 @@ def run_fits(parameters, df,df_all,tag):
         argset = {
             "fit_setup": fit_setups,
             "channel": parameters["mva_channels"],
-            "category": ["All"]
+            "category": parameters["category"]
         }
         print(df_all[df_all.dataset.isin(backgrounds)])
         print("-----------------------------------")
@@ -86,7 +90,7 @@ def run_fits(parameters, df,df_all,tag):
         "channel": parameters["mva_channels"],
         "category": df["category"].dropna().unique(),
     }
-    print(df["category"])
+    print(f'fitter category: df["category"]')
     fit_ret = non_parallelize(fitter, argset, parameters)
     df_fits = pd.DataFrame(columns=["label", "channel", "category", "chi2"])
     for fr in fit_ret:
@@ -122,6 +126,7 @@ def fitter(args, parameters={}):
         category = args["category"]
     else:
         category = 'All'
+        # category = args["category"]
     
     if mode == "Z":
         save_path = save_path + f"/calib_fits/BWxDCBexp/2016preVFP/"
@@ -349,6 +354,7 @@ class Fitter(object):
         )
 
         if True:
+            print(f" mkdir(save_path): {save_path}")
             mkdir(save_path)
             if doProdPDF:
                 for model_name in model_names:
@@ -518,6 +524,9 @@ class Fitter(object):
         return w
 
     def save_workspace(self, out_name):
+        print(f"save_workspace out_name: {out_name}")
+        # if not os.path.exists(out_name):  # Check if directory exists
+        #     os.makedirs(dir_path) 
         outfile = rt.TFile(f"{out_name}.root", "recreate")
         self.workspace.Write()
         outfile.Close()
@@ -947,7 +956,7 @@ class Fitter(object):
                     rt.RooFit.PrintLevel(-1),
                     #rt.RooFit.AsymptoticError(1),
                     rt.RooFit.PrefitDataFraction(0.01),
-                    rt.RooFit.BatchMode("cpu"),
+                    # rt.RooFit.BatchMode("cpu"),
                     #rt.RooFit.Minimizer("Minuit2","minimize"),
                     rt.RooFit.Verbose(rt.kFALSE),
                 )
